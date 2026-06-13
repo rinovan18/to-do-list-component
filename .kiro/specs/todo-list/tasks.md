@@ -29,7 +29,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - _Requirements: 2.1, 2.4, 8.2, 8.4_
 
 - [x] 3. Implementasi metode logika bisnis (tanpa rendering)
-  - [x] 3.1 Implementasi `_addTask()` dengan validasi input
+  - [x] 3.1 Implementasi `_addTask()` dengan validasi input dasar
     - Baca nilai `<input id="task-input">` dari shadowRoot
     - Trim nilai input; jika kosong atau hanya whitespace → return early tanpa perubahan
     - Buat task object: `{ id: crypto.randomUUID(), text, completed: false }`
@@ -82,25 +82,47 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - `_handleAddClick`: panggil `_addTask()`
     - _Requirements: 3.1, 3.2, 3.4_
 
-- [ ] 4. Checkpoint — Verifikasi logika bisnis
-  - Ensure all tests pass, ask the user if questions arise.
+  - [ ] 3.10 Implementasi validasi panjang karakter di `_addTask()` dan error message UI
+    - Tambahkan pengecekan: jika `text.length < 3` → set pesan error "min 3 karakter", return early
+    - Tambahkan pengecekan: jika `text.length > 50` → set pesan error "maks 50 karakter", return early
+    - Tambahkan reactive property `_validationError` (string, default `''`) untuk menyimpan pesan error
+    - Render elemen `<p id="task-input-error" role="alert" class="validation-error">` di bawah input area; tampilkan hanya jika `_validationError` tidak kosong
+    - Hapus `_validationError` ketika task berhasil ditambahkan (Requirement 10.5)
+    - Hapus `_validationError` ketika panjang teks input menjadi 0 karakter (Requirement 10.6)
+    - Gunakan DDD token `--ddd-theme-error` untuk warna teks error (Requirement 10.8)
+    - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.8_
 
-- [ ] 5. Implementasi rendering dan styles
-  - [ ] 5.1 Implementasi `static get styles()` dengan DDD tokens
+  - [ ] 3.11 Tambahkan key i18n untuk pesan validasi ke `this.t`
+    - Tambahkan `validationErrorMinLength` dengan nilai default: `'Task must be at least 3 characters'`
+    - Tambahkan `validationErrorMaxLength` dengan nilai default: `'Task must be no more than 50 characters'`
+    - Gunakan key ini di `_addTask()` saat menetapkan `_validationError`
+    - _Requirements: 10.7, 8.2_
+
+  - [ ] 3.12 Tambahkan aksesibilitas untuk error message (`aria-describedby` dan `role="alert"`)
+    - Tambahkan atribut `aria-describedby="task-input-error"` pada elemen `<input id="task-input">`
+    - Pastikan elemen error message menggunakan `role="alert"` agar screen reader mengumumkan otomatis
+    - _Requirements: 9.5, 9.6_
+
+- [x] 4. Checkpoint — Verifikasi logika bisnis dasar
+  - Tasks 1–3.9 telah selesai diimplementasikan dan property tests 1–6 telah ditulis.
+  - Tasks 3.10–3.12 (validasi panjang & error UI dari Requirement 10) masih perlu dikerjakan sebelum checkpoint ini dianggap sepenuhnya selesai.
+
+- [x] 5. Implementasi rendering dan styles
+  - [x] 5.1 Implementasi `static get styles()` dengan DDD tokens
     - Panggil `super.styles` untuk mewarisi DDD base styles
     - Definisikan semua class CSS (`:host`, `.input-area`, `.task-input`, `.add-button`, `.task-list`, `.task-item`, `.task-checkbox`, `.task-text`, `.task-text.completed`, `.delete-button`, `.empty-message`)
     - Gunakan hanya DDD CSS custom properties (tidak ada nilai hardcoded)
     - Tambahkan `:focus-visible` style pada semua elemen interaktif menggunakan DDD tokens
     - _Requirements: 5.4, 7.1, 7.2, 7.3, 7.4, 7.5, 9.4_
 
-  - [ ] 5.2 Implementasi `render()` — area input dan kondisi daftar kosong
+  - [x] 5.2 Implementasi `render()` — area input dan kondisi daftar kosong
     - Render `<label class="sr-only">` terhubung ke input via `for`/`id`
     - Render `<input id="task-input">` dengan `aria-label` dan placeholder dari `this.t`
     - Render Add Button dengan `aria-label` dari `this.t` dan handler `@click`
     - Render pesan kosong (`<p class="empty-message">`) jika `tasks.length === 0`
     - _Requirements: 3.1, 6.2, 8.2, 8.3, 9.1, 9.3_
 
-  - [ ] 5.3 Implementasi `_renderTask(task)` — rendering setiap item tugas
+  - [x] 5.3 Implementasi `_renderTask(task)` — rendering setiap item tugas
     - Render `<li class="task-item">` dengan `data-id`
     - Render `<input type="checkbox">` dengan `.checked`, `aria-checked`, `aria-label` dinamis dari `this.t`
     - Render `<span class="task-text ${task.completed ? 'completed' : ''}">` dengan teks task
@@ -130,8 +152,8 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - **Validates: Requirements 6.3**
     - Generate urutan penambahan T1..TN, verifikasi urutan `<li>` sesuai urutan penambahan
 
-- [ ] 6. Implementasi demo page
-  - [ ] 6.1 Perbarui `demo/index.html` agar memuat komponen dan menggunakannya
+- [x] 6. Implementasi demo page
+  - [x] 6.1 Perbarui `demo/index.html` agar memuat komponen dan menggunakannya
     - Import `../todo-list.js` sebagai ES module
     - Tambahkan `<todo-list></todo-list>` dalam body halaman demo
     - _Requirements: 1.5_
@@ -173,6 +195,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
 - `custom-elements.json` di-generate otomatis via `yarn run build` — jangan edit manual
 - Semua nilai CSS harus menggunakan DDD tokens — tidak ada nilai hardcoded (warna, spacing, font)
 - Gunakan `crypto.randomUUID()` untuk ID task; fallback ke `Math.random().toString(36).slice(2)` + timestamp jika tidak tersedia
+- Tasks 3.10–3.12 ditambahkan untuk Requirement 10 (validasi panjang karakter) dan Requirement 9.5–9.6 (aksesibilitas error message), yang tidak ada dalam tasks.md awal
 
 ## Task Dependency Graph
 
@@ -182,9 +205,10 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     { "id": 0, "tasks": ["2.1", "2.2"] },
     { "id": 1, "tasks": ["3.1", "3.6", "3.9"] },
     { "id": 2, "tasks": ["3.2", "3.3", "3.4", "3.5", "3.7", "3.8"] },
-    { "id": 3, "tasks": ["5.1", "5.2", "5.3"] },
-    { "id": 4, "tasks": ["5.4", "5.5", "5.6", "5.7", "6.1"] },
-    { "id": 5, "tasks": ["8.1", "8.2"] }
+    { "id": 3, "tasks": ["3.10", "3.11", "3.12"] },
+    { "id": 4, "tasks": ["5.1", "5.2", "5.3"] },
+    { "id": 5, "tasks": ["5.4", "5.5", "5.6", "5.7", "6.1"] },
+    { "id": 6, "tasks": ["8.1", "8.2"] }
   ]
 }
 ```
