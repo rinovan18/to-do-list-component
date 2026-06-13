@@ -17,6 +17,9 @@ Komponen web `todo-list` adalah LitElement web component dalam monorepo HAX Webc
 - **Add Button**: Tombol yang memicu penambahan tugas baru ke Task List
 - **Delete Button**: Tombol per-tugas yang memicu penghapusan tugas dari Task List
 - **Complete Toggle**: Elemen interaktif per-tugas (checkbox atau tombol) yang memicu perubahan status selesai suatu Task
+- **Validation Error Message**: Pesan teks yang ditampilkan di bawah Input Field ketika validasi panjang karakter gagal
+- **Min Length**: Panjang minimum karakter yang valid untuk teks tugas, yaitu 3 karakter (setelah trimming whitespace)
+- **Max Length**: Panjang maksimum karakter yang valid untuk teks tugas, yaitu 50 karakter (setelah trimming whitespace)
 
 ---
 
@@ -129,6 +132,23 @@ Komponen web `todo-list` adalah LitElement web component dalam monorepo HAX Webc
 
 ---
 
+### Requirement 10: Validasi Panjang Karakter Teks Tugas
+
+**User Story:** Sebagai pengguna, saya ingin mendapatkan umpan balik yang jelas ketika teks tugas yang saya masukkan terlalu pendek atau terlalu panjang, sehingga saya dapat memperbaiki input sebelum tugas ditambahkan ke daftar.
+
+#### Acceptance Criteria
+
+1. WHEN Add Button diklik atau tombol Enter ditekan dan panjang teks Input Field (setelah trimming whitespace) kurang dari 3 karakter, THEN THE TodoList SHALL tidak menambahkan Task baru ke array `tasks`.
+2. WHEN Add Button diklik atau tombol Enter ditekan dan panjang teks Input Field (setelah trimming whitespace) lebih dari 50 karakter, THEN THE TodoList SHALL tidak menambahkan Task baru ke array `tasks`.
+3. IF Add Button diklik atau tombol Enter ditekan dan panjang teks Input Field (setelah trimming whitespace) lebih dari 0 karakter dan kurang dari 3 karakter, THEN THE TodoList SHALL menampilkan Validation Error Message yang menyatakan teks tugas minimal 3 karakter.
+4. IF Add Button diklik atau tombol Enter ditekan dan panjang teks Input Field (setelah trimming whitespace) lebih dari 50 karakter, THEN THE TodoList SHALL menampilkan Validation Error Message yang menyatakan teks tugas maksimal 50 karakter.
+5. WHEN Input Field berisi teks yang valid (3–50 karakter setelah trimming) dan Task berhasil ditambahkan, THE TodoList SHALL menghapus Validation Error Message yang sebelumnya tampil.
+6. WHEN panjang teks Input Field (setelah trimming whitespace) berubah menjadi 0 karakter, THE TodoList SHALL menghapus Validation Error Message yang sebelumnya tampil.
+7. THE TodoList SHALL menggunakan label Validation Error Message yang dapat diterjemahkan melalui I18NMixin.
+8. THE TodoList SHALL merender Validation Error Message menggunakan DDD CSS custom properties untuk warna error.
+
+---
+
 ### Requirement 9: Aksesibilitas
 
 **User Story:** Sebagai pengguna dengan kebutuhan aksesibilitas, saya ingin dapat menggunakan komponen `todo-list` dengan keyboard dan screen reader sehingga komponen dapat diakses oleh semua pengguna.
@@ -139,3 +159,5 @@ Komponen web `todo-list` adalah LitElement web component dalam monorepo HAX Webc
 2. THE TodoList SHALL memastikan setiap Complete Toggle berupa elemen `<input type="checkbox">` atau elemen dengan `role="checkbox"` dan atribut `aria-checked` yang sesuai.
 3. THE TodoList SHALL memastikan Input Field memiliki elemen `<label>` yang terhubung secara eksplisit atau atribut `aria-label`.
 4. WHEN fokus keyboard berada pada elemen interaktif komponen, THE TodoList SHALL menampilkan indikator fokus yang terlihat menggunakan DDD token.
+5. WHEN Validation Error Message ditampilkan, THE TodoList SHALL menyertakan atribut `role="alert"` pada elemen Validation Error Message agar screen reader dapat mengumumkan pesan tersebut secara otomatis.
+6. THE TodoList SHALL menghubungkan Input Field dengan Validation Error Message menggunakan atribut `aria-describedby` sehingga screen reader dapat mengasosiasikan pesan error dengan input yang bersangkutan.
