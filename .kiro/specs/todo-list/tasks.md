@@ -92,7 +92,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Gunakan DDD token `--ddd-theme-error` untuk warna teks error (Requirement 10.8)
     - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5, 10.6, 10.8_
 
-  - [ ] 3.11 Tambahkan key i18n untuk pesan validasi ke `this.t`
+  - [x] 3.11 Tambahkan key i18n untuk pesan validasi ke `this.t`
     - Tambahkan `validationErrorMinLength` dengan nilai default: `'Task must be at least 3 characters'`
     - Tambahkan `validationErrorMaxLength` dengan nilai default: `'Task must be no more than 50 characters'`
     - Gunakan key ini di `_addTask()` saat menetapkan `_validationError`

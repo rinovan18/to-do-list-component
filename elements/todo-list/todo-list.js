@@ -26,6 +26,8 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
       emptyMessage: "No tasks yet. Add one above!",
       taskCompleted: "Mark as incomplete",
       taskIncomplete: "Mark as complete",
+      validationErrorMinLength: "Task must be at least 3 characters",
+      validationErrorMaxLength: "Task must be no more than 50 characters",
     };
   }
 
@@ -285,13 +287,13 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
 
     // Min length check
     if (text.length < 3) {
-      this._validationError = 'min 3 karakter';
+      this._validationError = this.t.validationErrorMinLength;
       return;
     }
 
     // Max length check
     if (text.length > 50) {
-      this._validationError = 'maks 50 karakter';
+      this._validationError = this.t.validationErrorMaxLength;
       return;
     }
 
