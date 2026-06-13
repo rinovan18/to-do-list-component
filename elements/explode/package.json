@@ -1,0 +1,43 @@
+{
+  "name": "@haxtheweb/explode",
+  "version": "9.0.0",
+  "description": "Interactive quiz component with confetti and Google Sheets integration",
+  "main": "explode-quiz.js",
+  "module": "explode-quiz.js",
+  "license": "Apache-2.0",
+  "scripts": {
+    "start": "wds --node-resolve --open demo/",
+    "build": "npm run format && cem analyze --litelement",
+    "dev": "npm run build -- --watch",
+    "test": "wtr test/**/*.test.js --node-resolve --run",
+    "lint": "eslint explode-quiz.js",
+    "lint:fix": "eslint --fix explode-quiz.js",
+    "format": "prettier --write explode-quiz.js"
+  },
+  "keywords": [
+    "webcomponent",
+    "lit-element",
+    "hax",
+    "quiz",
+    "interactive"
+  ],
+  "author": "",
+  "peerDependencies": {
+    "@haxtheweb/d-d-d": "*",
+    "@haxtheweb/i18n-manager": "*",
+    "lit": "*"
+  },
+  "dependencies": {
+    "canvas-confetti": "^1.9.3"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.6.9",
+    "@haxtheweb/todo-list": "file:../todo-list",
+    "@open-wc/testing": "^3.2.0",
+    "@web/dev-server": "^0.4.0",
+    "@web/test-runner": "^0.18.0",
+    "eslint": "^8.0.0",
+    "fast-check": "^4.8.0",
+    "prettier": "^3.0.0"
+  }
+}

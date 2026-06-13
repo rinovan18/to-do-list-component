@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "explode-quiz.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "rollup.entry.js",
+      "declarations": [],
+      "exports": []
+    }
+  ]
+}

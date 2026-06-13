@@ -1,0 +1,16 @@
+/node_modules
+/dist
+/build
+/test
+/.github
+/.vscode
+LICENSE
+.dddignore
+.editorconfig
+.gitignore
+.npmignore
+*.md
+*.yml
+*.json
+*.png
+*.svg

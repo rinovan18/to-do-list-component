@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explode Quiz Demo</title>
+  <script type="module">
+    import '../explode-quiz.js'
+  </script>
+  <style>
+    body {
+      font-family: var(--ddd-font-primary);
+      padding: var(--ddd-spacing-8);
+      background: var(--ddd-theme-background);
+      color: var(--ddd-theme-secondary);
+    }
+    h1 {
+      color: var(--ddd-theme-primary);
+      margin-bottom: var(--ddd-spacing-8);
+    }
+    .demo-container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--ddd-spacing-8);
+    }
+  </style>
+</head>
+<body>
+  <h1>Explode Quiz Demo</h1>
+  
+  <div class="demo-container">
+    <h2>Dengan Soal Bawaan</h2>
+    <explode-quiz></explode-quiz>
+
+    <h2>Dengan Soal Kustom</h2>
+    <explode-quiz
+      .questions='${JSON.stringify([
+        {
+          question: 'Apa warna bendera Indonesia?',
+          choices: ['Merah Putih', 'Putih Merah', 'Merah Biru', 'Hijau Kuning'],
+          correctIndex: 0,
+        },
+        {
+          question: 'Berapa jumlah hari dalam tahun kabisat?',
+          choices: ['364', '365', '366', '367'],
+          correctIndex: 2,
+        },
+      ])}'
+    ></explode-quiz>
+  </div>
+</body>
+</html>
