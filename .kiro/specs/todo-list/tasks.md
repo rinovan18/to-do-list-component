@@ -71,7 +71,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Generate array tasks (panjang ≥ 1), pilih index acak
     - Verifikasi panjang turun 1 dan tidak ada elemen dengan id yang sama
 
-  - [ ]* 3.8 Tulis property test untuk Property 6 (Complete Toggle Round-Trip)
+  - [x] 3.8 Tulis property test untuk Property 6 (Complete Toggle Round-Trip)
     - **Property 6: Complete Toggle Round-Trip**
     - **Validates: Requirements 5.2, 5.3**
     - Toggle task ke `true` lalu kembali ke `false`, verifikasi nilai akhir `completed === false`

@@ -169,6 +169,95 @@ describe('todo-list', () => {
   })
 
   /**
+   * Property 6: Complete Toggle Round-Trip
+   * Validates: Requirements 5.2, 5.3
+   *
+   * For any task in the list, activating the Complete Toggle (completed: false → true)
+   * then deactivating it (completed: true → false) must return the task's `completed`
+   * value to its initial state (false). More generally: the `completed` value must
+   * always reflect the last state set by the user.
+   */
+  describe('Property 6: Complete Toggle Round-Trip', () => {
+    it('toggling completed true then false returns to false (round-trip invariant)', async () => {
+      const validTaskArbitrary = fc.record({
+        id: fc.uuid(),
+        text: fc.string({ minLength: 1 }).filter(s => s.trim() !== ''),
+        completed: fc.constant(false),
+      })
+
+      await fc.assert(
+        fc.asyncProperty(
+          fc.array(validTaskArbitrary, { minLength: 1, maxLength: 20 }).chain(
+            arr => fc.tuple(fc.constant(arr), fc.integer({ min: 0, max: arr.length - 1 }))
+          ),
+          async ([tasks, index]) => {
+            const el = await fixture(html`<todo-list></todo-list>`)
+            el.tasks = tasks.map(t => ({ ...t }))
+            await el.updateComplete
+
+            const targetId = el.tasks[index].id
+
+            // Step 1: toggle to true (completed: false → true)
+            el._handleToggleComplete(targetId, true)
+            await el.updateComplete
+
+            const afterTrue = el.tasks.find(t => t.id === targetId)
+            expect(afterTrue.completed).to.equal(true)
+
+            // Step 2: toggle back to false (completed: true → false)
+            el._handleToggleComplete(targetId, false)
+            await el.updateComplete
+
+            const afterFalse = el.tasks.find(t => t.id === targetId)
+            expect(afterFalse.completed).to.equal(false)
+
+            // Verify other tasks are not affected
+            el.tasks.forEach(t => {
+              if (t.id !== targetId) {
+                const original = tasks.find(orig => orig.id === t.id)
+                expect(t.completed).to.equal(original.completed)
+              }
+            })
+          }
+        ),
+        { numRuns: FC_RUNS }
+      )
+    })
+
+    it('setting completed to any boolean value v results in completed === v (last-set-wins)', async () => {
+      const validTaskArbitrary = fc.record({
+        id: fc.uuid(),
+        text: fc.string({ minLength: 1 }).filter(s => s.trim() !== ''),
+        completed: fc.boolean(),
+      })
+
+      await fc.assert(
+        fc.asyncProperty(
+          fc.array(validTaskArbitrary, { minLength: 1, maxLength: 20 }).chain(
+            arr => fc.tuple(fc.constant(arr), fc.integer({ min: 0, max: arr.length - 1 }))
+          ),
+          fc.boolean(),
+          async ([tasks, index], boolValue) => {
+            const el = await fixture(html`<todo-list></todo-list>`)
+            el.tasks = tasks.map(t => ({ ...t }))
+            await el.updateComplete
+
+            const targetId = el.tasks[index].id
+
+            // Set completed to any boolean value
+            el._handleToggleComplete(targetId, boolValue)
+            await el.updateComplete
+
+            const updatedTask = el.tasks.find(t => t.id === targetId)
+            expect(updatedTask.completed).to.equal(boolValue)
+          }
+        ),
+        { numRuns: FC_RUNS }
+      )
+    })
+  })
+
+  /**
    * Property 3: Task Addition Increases List Length
    * Validates: Requirements 3.2, 6.1, 6.3
    *
