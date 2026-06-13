@@ -464,6 +464,123 @@ describe('todo-list', () => {
   })
 
   /**
+   * Unit Tests: Complete Toggle dan Aksesibilitas
+   * Validates: Requirements 5.1, 6.2, 9.2, 9.3
+   *
+   * Verifikasi:
+   *   - Complete Toggle berupa <input type="checkbox" class="task-checkbox">
+   *   - Input field memiliki aria-label yang tidak kosong
+   *   - Pesan kosong <p class="empty-message"> muncul saat tasks = []
+   *   - <ul class="task-list"> TIDAK ada saat tasks = []
+   */
+  describe('Unit Tests: Complete Toggle dan Aksesibilitas', () => {
+    it('complete toggle is rendered as <input type="checkbox"> with class task-checkbox', async () => {
+      const el = await fixture(html`<todo-list></todo-list>`)
+      el.tasks = [{ id: 'task-1', text: 'Test task', completed: false }]
+      await el.updateComplete
+
+      const checkbox = el.shadowRoot.querySelector('li.task-item input[type="checkbox"].task-checkbox')
+      expect(checkbox).to.exist
+      expect(checkbox.tagName.toLowerCase()).to.equal('input')
+      expect(checkbox.type).to.equal('checkbox')
+      expect(checkbox.classList.contains('task-checkbox')).to.equal(true)
+    })
+
+    it('checkbox has non-empty aria-label that reflects incomplete status', async () => {
+      const el = await fixture(html`<todo-list></todo-list>`)
+      el.tasks = [{ id: 'task-2', text: 'Incomplete task', completed: false }]
+      await el.updateComplete
+
+      const checkbox = el.shadowRoot.querySelector('li.task-item input[type="checkbox"].task-checkbox')
+      const ariaLabel = checkbox.getAttribute('aria-label')
+      expect(ariaLabel).to.be.a('string')
+      expect(ariaLabel.trim().length).to.be.greaterThan(0)
+    })
+
+    it('checkbox has non-empty aria-label that reflects completed status', async () => {
+      const el = await fixture(html`<todo-list></todo-list>`)
+      el.tasks = [{ id: 'task-3', text: 'Completed task', completed: true }]
+      await el.updateComplete
+
+      const checkbox = el.shadowRoot.querySelector('li.task-item input[type="checkbox"].task-checkbox')
+      const ariaLabel = checkbox.getAttribute('aria-label')
+      expect(ariaLabel).to.be.a('string')
+      expect(ariaLabel.trim().length).to.be.greaterThan(0)
+    })
+
+    it('checkbox aria-label changes based on completed status (Requirement 9.2)', async () => {
+      const el = await fixture(html`<todo-list></todo-list>`)
+
+      // Incomplete task
+      el.tasks = [{ id: 'task-4', text: 'Toggle task', completed: false }]
+      await el.updateComplete
+      const incompleteLabel = el.shadowRoot.querySelector('li.task-item input[type="checkbox"]').getAttribute('aria-label')
+
+      // Completed task
+      el.tasks = [{ id: 'task-4', text: 'Toggle task', completed: true }]
+      await el.updateComplete
+      const completedLabel = el.shadowRoot.querySelector('li.task-item input[type="checkbox"]').getAttribute('aria-label')
+
+      // Labels must differ based on status
+      expect(incompleteLabel).to.be.a('string')
+      expect(completedLabel).to.be.a('string')
+      expect(incompleteLabel).to.not.equal(completedLabel)
+    })
+
+    it('checkbox has aria-checked reflecting boolean completed value (Requirement 9.3)', async () => {
+      const el = await fixture(html`<todo-list></todo-list>`)
+
+      // completed = false → aria-checked = "false"
+      el.tasks = [{ id: 'task-5', text: 'Unchecked task', completed: false }]
+      await el.updateComplete
+      const checkboxFalse = el.shadowRoot.querySelector('li.task-item input[type="checkbox"]')
+      expect(checkboxFalse.getAttribute('aria-checked')).to.equal('false')
+
+      // completed = true → aria-checked = "true"
+      el.tasks = [{ id: 'task-6', text: 'Checked task', completed: true }]
+      await el.updateComplete
+      const checkboxTrue = el.shadowRoot.querySelector('li.task-item input[type="checkbox"]')
+      expect(checkboxTrue.getAttribute('aria-checked')).to.equal('true')
+    })
+
+    it('input field has non-empty aria-label (Requirement 9.x)', async () => {
+      const el = await fixture(html`<todo-list></todo-list>`)
+      await el.updateComplete
+
+      const input = el.shadowRoot.querySelector('#task-input')
+      expect(input).to.exist
+
+      const ariaLabel = input.getAttribute('aria-label')
+      // Must have aria-label OR a connected <label> via for/id
+      if (ariaLabel !== null) {
+        expect(ariaLabel.trim().length).to.be.greaterThan(0)
+      } else {
+        // Check for a connected <label for="task-input">
+        const label = el.shadowRoot.querySelector('label[for="task-input"]')
+        expect(label).to.exist
+      }
+    })
+
+    it('renders <p class="empty-message"> when tasks = [] (Requirement 6.2)', async () => {
+      const el = await fixture(html`<todo-list></todo-list>`)
+      el.tasks = []
+      await el.updateComplete
+
+      const emptyMsg = el.shadowRoot.querySelector('p.empty-message')
+      expect(emptyMsg).to.exist
+    })
+
+    it('does NOT render <ul class="task-list"> when tasks = [] (Requirement 6.2)', async () => {
+      const el = await fixture(html`<todo-list></todo-list>`)
+      el.tasks = []
+      await el.updateComplete
+
+      const taskList = el.shadowRoot.querySelector('ul.task-list')
+      expect(taskList).to.not.exist
+    })
+  })
+
+  /**
    * Property 3: Task Addition Increases List Length
    * Validates: Requirements 3.2, 6.1, 6.3
    *

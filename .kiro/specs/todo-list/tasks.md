@@ -141,13 +141,13 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - **Validates: Requirements 4.1, 5.1, 9.1**
     - Untuk setiap `<li>`, verifikasi ada tepat 1 checkbox, 1 `.task-text`, 1 `.delete-button` dengan `aria-label` non-empty
 
-  - [ ] 5.6 Tulis property test untuk Property 9 (Completed Task Visual Differentiation)
+  - [x] 5.6 Tulis property test untuk Property 9 (Completed Task Visual Differentiation)
     - **Property 9: Completed Task Visual Differentiation**
     - **Validates: Requirements 5.4**
     - Task dengan `completed = true` → `<span>` punya class `completed`
     - Task dengan `completed = false` → `<span>` tidak punya class `completed`
 
-  - [ ] 5.7 Tulis property test untuk Property 10 (Rendering Order Preserves Insertion Order)
+  - [x] 5.7 Tulis property test untuk Property 10 (Rendering Order Preserves Insertion Order)
     - **Property 10: Rendering Order Preserves Insertion Order**
     - **Validates: Requirements 6.3**
     - Generate urutan penambahan T1..TN, verifikasi urutan `<li>` sesuai urutan penambahan
@@ -174,7 +174,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Tambahkan `<todo-list></todo-list>` dalam body halaman demo
     - _Requirements: 1.5_
 
-- [ ] 7. Checkpoint — Verifikasi rendering dan DDD compliance
+- [x] 7. Checkpoint — Verifikasi rendering dan DDD compliance
   - Jalankan `npm test` dari `elements/todo-list/`
   - Jalankan `hax audit` untuk verifikasi DDD compliance
   - Ensure all tests pass, ask the user if questions arise.
@@ -187,31 +187,31 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Verifikasi `haxProperties` menyertakan `canScale`, `canPosition`, `canEditSource`, `gizmo`, `settings`
     - _Requirements: 1.1, 1.2, 2.1, 8.2, 8.4_
 
-  - [ ] 8.2 Tulis unit tests untuk Complete Toggle dan aksesibilitas
+  - [x] 8.2 Tulis unit tests untuk Complete Toggle dan aksesibilitas
     - Verifikasi Complete Toggle berupa `<input type="checkbox">`
     - Verifikasi Input Field memiliki `<label>` terhubung atau `aria-label`
     - Verifikasi pesan kosong tampil saat `tasks = []`
     - _Requirements: 5.1, 6.2, 9.2, 9.3_
 
-- [ ] 9. Final checkpoint — Build dan pre-PR checklist
+- [x] 9. Final checkpoint — Build dan pre-PR checklist
   - Jalankan `npm test` — semua test harus lulus
   - Jalankan `npm run lint` — tidak ada lint error
   - Jalankan `hax audit` — DDD compliance terkonfirmasi
   - Jalankan `yarn run build` — `custom-elements.json` ter-generate
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 10. Tulis property tests dan unit tests yang masih tersisa
-  - [ ] 10.1 Tulis property test untuk Property 9 (Completed Task Visual Differentiation)
+- [x] 10. Tulis property tests dan unit tests yang masih tersisa
+  - [x] 10.1 Tulis property test untuk Property 9 (Completed Task Visual Differentiation)
     - Task dengan `completed = true` → `<span class="task-text">` harus memiliki class `completed`
     - Task dengan `completed = false` → `<span class="task-text">` tidak boleh memiliki class `completed`
     - **Property 9: Completed Task Visual Differentiation**
     - **Validates: Requirements 5.4**
-  - [ ] 10.2 Tulis property test untuk Property 10 (Rendering Order Preserves Insertion Order)
+  - [x] 10.2 Tulis property test untuk Property 10 (Rendering Order Preserves Insertion Order)
     - Generate urutan penambahan T1..TN via `_addTask()` berulang
     - Verifikasi urutan `<li class="task-item">` yang dirender sesuai urutan penambahan
     - **Property 10: Rendering Order Preserves Insertion Order**
     - **Validates: Requirements 6.3**
-  - [ ] 10.3 Tulis unit tests untuk Complete Toggle dan aksesibilitas (Task 8.2)
+  - [x] 10.3 Tulis unit tests untuk Complete Toggle dan aksesibilitas (Task 8.2)
     - Verifikasi Complete Toggle berupa `<input type="checkbox">`
     - Verifikasi Input Field memiliki `<label>` terhubung atau `aria-label`
     - Verifikasi pesan kosong tampil saat `tasks = []`

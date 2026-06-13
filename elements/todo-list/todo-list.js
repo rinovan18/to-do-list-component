@@ -133,7 +133,7 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
         /* ── Task list ───────────────────────────────────────────────────── */
         .task-list {
           list-style: none;
-          padding: 0;
+          padding: var(--ddd-spacing-0, 0);
           margin: var(--ddd-spacing-4) 0 0 0;
         }
 
@@ -244,7 +244,7 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
           color: var(--ddd-theme-error);
           font-family: var(--ddd-font-primary);
           font-size: var(--ddd-font-size-xs);
-          margin: 0;
+          margin: var(--ddd-spacing-0, 0);
           padding: var(--ddd-spacing-2) var(--ddd-spacing-1);
         }
       `,
