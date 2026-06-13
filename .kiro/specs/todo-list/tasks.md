@@ -14,15 +14,15 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
   - Buat/perbarui `.dddignore` dengan konten standar (exclude `/node_modules`, `/test`, `*.json`, dll.)
   - _Requirements: 1.5_
 
-- [ ] 2. Implementasi struktur kelas dan registrasi komponen
-  - [ ] 2.1 Tulis mixin chain dan registrasi custom element
+- [x] 2. Implementasi struktur kelas dan registrasi komponen
+  - [x] 2.1 Tulis mixin chain dan registrasi custom element
     - Ubah kelas hasil scaffold agar extends `I18NMixin(DDDSuper(LitElement))`
     - Tambahkan `static get tag()` yang mengembalikan `'todo-list'`
     - Gunakan `globalThis.customElements.define(TodoList.tag, TodoList)` untuk registrasi
     - Tambahkan `static get haxProperties()` dengan field `canScale`, `canPosition`, `canEditSource`, `gizmo`, `settings`
     - _Requirements: 1.1, 1.2, 1.3, 1.4_
 
-  - [ ] 2.2 Definisikan reactive property `tasks` dan string i18n
+  - [x] 2.2 Definisikan reactive property `tasks` dan string i18n
     - Deklarasikan `tasks: { type: Array }` di `static get properties()`
     - Inisialisasi `this.tasks = []` di constructor
     - Definisikan `this.t` di constructor dengan semua key: `addTask`, `inputPlaceholder`, `deleteTask`, `emptyMessage`, `taskCompleted`, `taskIncomplete` beserta nilai default bahasa Inggris
