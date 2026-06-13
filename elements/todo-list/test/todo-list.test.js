@@ -88,4 +88,53 @@ describe('todo-list', () => {
       )
     })
   })
+
+  /**
+   * Property 3: Task Addition Increases List Length
+   * Validates: Requirements 3.2, 6.1, 6.3
+   *
+   * For any initial tasks array of length N and a valid non-empty input string,
+   * after calling _addTask(), tasks.length must equal N + 1 and the last task
+   * must have text equal to the trimmed input.
+   */
+  describe('Property 3: Task Addition Increases List Length', () => {
+    it('adding a valid task increases tasks.length by exactly 1 and appends with correct text', async () => {
+      const el = await fixture(html`<todo-list></todo-list>`)
+      await el.updateComplete
+
+      // Arbitrary for a valid task object (pre-existing tasks in the list)
+      const validTaskArbitrary = fc.record({
+        id: fc.string({ minLength: 1 }),
+        text: fc.string({ minLength: 1 }).filter(s => s.trim() !== ''),
+        completed: fc.boolean(),
+      })
+
+      await fc.assert(
+        fc.asyncProperty(
+          fc.array(validTaskArbitrary, { maxLength: 20 }),
+          fc.string({ minLength: 1 }).filter(s => s.trim() !== ''),
+          async (initialTasks, newText) => {
+            // Set up initial state with N tasks
+            el.tasks = [...initialTasks]
+            await el.updateComplete
+
+            const N = el.tasks.length
+
+            // Add a new task via _addTask()
+            const input = el.shadowRoot.querySelector('#task-input')
+            input.value = newText
+            el._addTask()
+            await el.updateComplete
+
+            // tasks.length must be N + 1
+            expect(el.tasks).to.have.length(N + 1)
+            // The last task must have the correct trimmed text
+            const lastTask = el.tasks[el.tasks.length - 1]
+            expect(lastTask.text).to.equal(newText.trim())
+          }
+        ),
+        { numRuns: FC_RUNS }
+      )
+    })
+  })
 })
