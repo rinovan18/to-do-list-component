@@ -11,6 +11,42 @@ describe('todo-list', () => {
   })
 
   /**
+   * Property 2: Whitespace Input Rejection
+   * Validates: Requirements 3.5
+   *
+   * For any string consisting entirely of whitespace characters (space, tab, newline,
+   * or any combination), attempting to add it as a task must not change the length
+   * or contents of the `tasks` array.
+   */
+  describe('Property 2: Whitespace Input Rejection', () => {
+    it('whitespace-only strings never add a task', async () => {
+      const el = await fixture(html`<todo-list></todo-list>`)
+      await el.updateComplete
+
+      await fc.assert(
+        fc.asyncProperty(
+          fc.array(fc.constantFrom(' ', '\t', '\n')).map(chars => chars.join('')),
+          async (whitespace) => {
+            // Reset tasks before each iteration
+            el.tasks = []
+            await el.updateComplete
+
+            // Set input value to whitespace string and call _addTask() directly
+            const input = el.shadowRoot.querySelector('#task-input')
+            input.value = whitespace
+            el._addTask()
+            await el.updateComplete
+
+            // tasks.length must remain unchanged (0)
+            expect(el.tasks).to.have.length(0)
+          }
+        ),
+        { numRuns: FC_RUNS }
+      )
+    })
+  })
+
+  /**
    * Property 1: Task Object Schema Invariant
    * Validates: Requirements 2.4, 3.2
    *

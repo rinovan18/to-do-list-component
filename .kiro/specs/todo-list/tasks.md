@@ -28,7 +28,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Definisikan `this.t` di constructor dengan semua key: `addTask`, `inputPlaceholder`, `deleteTask`, `emptyMessage`, `taskCompleted`, `taskIncomplete` beserta nilai default bahasa Inggris
     - _Requirements: 2.1, 2.4, 8.2, 8.4_
 
-- [~] 3. Implementasi metode logika bisnis (tanpa rendering)
+- [-] 3. Implementasi metode logika bisnis (tanpa rendering)
   - [x] 3.1 Implementasi `_addTask()` dengan validasi input
     - Baca nilai `<input id="task-input">` dari shadowRoot
     - Trim nilai input; jika kosong atau hanya whitespace → return early tanpa perubahan
@@ -43,7 +43,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Gunakan `fc.string({ minLength: 1 }).filter(s => s.trim() !== '')` untuk generate teks valid
     - Verifikasi task yang dihasilkan punya `id` string non-empty, `text` sesuai input trim, `completed === false`
 
-  - [-] 3.3 Tulis property test untuk Property 2 (Whitespace Input Rejection)
+  - [x] 3.3 Tulis property test untuk Property 2 (Whitespace Input Rejection)
     - **Property 2: Whitespace Input Rejection**
     - **Validates: Requirements 3.5**
     - Gunakan `fc.stringOf(fc.constantFrom(' ', '\t', '\n'))` untuk generate whitespace string
@@ -60,7 +60,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - **Validates: Requirements 3.3**
     - Setelah `_addTask()` berhasil, verifikasi `shadowRoot.querySelector('#task-input').value === ''`
 
-  - [~] 3.6 Implementasi `_handleDelete(id)` dan `_handleToggleComplete(id, checked)`
+  - [-] 3.6 Implementasi `_handleDelete(id)` dan `_handleToggleComplete(id, checked)`
     - `_handleDelete`: `this.tasks = this.tasks.filter(task => task.id !== id)`
     - `_handleToggleComplete`: `this.tasks = this.tasks.map(task => task.id === id ? { ...task, completed: checked } : task)`
     - _Requirements: 4.2, 5.2, 5.3_
@@ -77,7 +77,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Toggle task ke `true` lalu kembali ke `false`, verifikasi nilai akhir `completed === false`
     - Verifikasi nilai `completed` selalu mencerminkan state terakhir yang di-set
 
-  - [ ] 3.9 Implementasi event handler input (`_handleInputKeydown`, `_handleAddClick`)
+  - [-] 3.9 Implementasi event handler input (`_handleInputKeydown`, `_handleAddClick`)
     - `_handleInputKeydown`: panggil `_addTask()` jika `e.key === 'Enter'`
     - `_handleAddClick`: panggil `_addTask()`
     - _Requirements: 3.1, 3.2, 3.4_
