@@ -152,6 +152,22 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - **Validates: Requirements 6.3**
     - Generate urutan penambahan T1..TN, verifikasi urutan `<li>` sesuai urutan penambahan
 
+- [ ] 5.8 Terapkan Polaris styling sesuai design.md
+  - Update `:host` — tambahkan `padding: var(--ddd-spacing-8)`, `border-radius: var(--ddd-radius-lg)`, `box-shadow`, `max-width: 640px`, dan ganti background/color ke token Polaris dengan fallback
+  - Update `.task-input` — ganti border ke `1.5px solid var(--ddd-theme-polaris-border, ...)`, border-radius ke `--ddd-radius-md`, tambahkan `outline: none` dan `transition`
+  - Update `.task-input:focus` — ganti box-shadow ke `0 0 0 3px var(--ddd-theme-polaris-focus-ring, ...)`
+  - Update `.add-button` — tambahkan `font-weight: var(--ddd-font-weight-bold)`, ganti border-radius ke `--ddd-radius-xl` (pill), tambahkan `border: none`, `transition`, `box-shadow`, dan token Polaris untuk background/color
+  - Update `.add-button:hover` — gunakan `--ddd-theme-polaris-primary-hover` dengan fallback
+  - Update `.add-button:focus-visible` — ganti ke `box-shadow: 0 0 0 3px` dengan Polaris focus-ring token
+  - Update `.task-item` — ganti border-radius ke `--ddd-radius-lg`, background ke Polaris surface token, tambahkan `box-shadow`, `transition`, dan `.task-item:hover`
+  - Update `.task-checkbox` — ganti `accent-color` ke `--ddd-theme-polaris-primary` dengan fallback, ganti `:focus-visible` ke box-shadow style
+  - Update `.task-text` — tambahkan `line-height: 1.5`, ganti color ke `--ddd-theme-polaris-text` dengan fallback
+  - Update `.delete-button` — tambahkan `font-weight: var(--ddd-font-weight-bold)`, ganti border-radius ke `--ddd-radius-md`, border ke `1.5px solid`, tambahkan `transition`
+  - Update `.delete-button:focus-visible` — ganti ke `box-shadow: 0 0 0 3px rgba(...)` style
+  - Update `.empty-message` — tambahkan `background`, `border: 1.5px dashed`, `border-radius: --ddd-radius-lg`, ganti padding ke `spacing-10 spacing-8`, font-size ke `--ddd-font-size-m`
+  - Tambahkan `.todo-heading` class untuk heading opsional (font-size xl, font-weight bold, Polaris primary color)
+  - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
+
 - [x] 6. Implementasi demo page
   - [x] 6.1 Perbarui `demo/index.html` agar memuat komponen dan menggunakannya
     - Import `../todo-list.js` sebagai ES module
@@ -207,7 +223,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     { "id": 2, "tasks": ["3.2", "3.3", "3.4", "3.5", "3.7", "3.8"] },
     { "id": 3, "tasks": ["3.10", "3.11", "3.12"] },
     { "id": 4, "tasks": ["5.1", "5.2", "5.3"] },
-    { "id": 5, "tasks": ["5.4", "5.5", "5.6", "5.7", "6.1"] },
+    { "id": 5, "tasks": ["5.4", "5.5", "5.6", "5.7", "5.8", "6.1"] },
     { "id": 6, "tasks": ["8.1", "8.2"] }
   ]
 }
