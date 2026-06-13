@@ -141,32 +141,32 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - **Validates: Requirements 4.1, 5.1, 9.1**
     - Untuk setiap `<li>`, verifikasi ada tepat 1 checkbox, 1 `.task-text`, 1 `.delete-button` dengan `aria-label` non-empty
 
-  - [ ]* 5.6 Tulis property test untuk Property 9 (Completed Task Visual Differentiation)
+  - [ ] 5.6 Tulis property test untuk Property 9 (Completed Task Visual Differentiation)
     - **Property 9: Completed Task Visual Differentiation**
     - **Validates: Requirements 5.4**
     - Task dengan `completed = true` → `<span>` punya class `completed`
     - Task dengan `completed = false` → `<span>` tidak punya class `completed`
 
-  - [ ]* 5.7 Tulis property test untuk Property 10 (Rendering Order Preserves Insertion Order)
+  - [ ] 5.7 Tulis property test untuk Property 10 (Rendering Order Preserves Insertion Order)
     - **Property 10: Rendering Order Preserves Insertion Order**
     - **Validates: Requirements 6.3**
     - Generate urutan penambahan T1..TN, verifikasi urutan `<li>` sesuai urutan penambahan
 
-- [x] 5.8 Terapkan Polaris styling sesuai design.md
-  - Update `:host` — tambahkan `padding: var(--ddd-spacing-8)`, `border-radius: var(--ddd-radius-lg)`, `box-shadow`, `max-width: 640px`, dan ganti background/color ke token Polaris dengan fallback
-  - Update `.task-input` — ganti border ke `1.5px solid var(--ddd-theme-polaris-border, ...)`, border-radius ke `--ddd-radius-md`, tambahkan `outline: none` dan `transition`
-  - Update `.task-input:focus` — ganti box-shadow ke `0 0 0 3px var(--ddd-theme-polaris-focus-ring, ...)`
-  - Update `.add-button` — tambahkan `font-weight: var(--ddd-font-weight-bold)`, ganti border-radius ke `--ddd-radius-xl` (pill), tambahkan `border: none`, `transition`, `box-shadow`, dan token Polaris untuk background/color
-  - Update `.add-button:hover` — gunakan `--ddd-theme-polaris-primary-hover` dengan fallback
-  - Update `.add-button:focus-visible` — ganti ke `box-shadow: 0 0 0 3px` dengan Polaris focus-ring token
-  - Update `.task-item` — ganti border-radius ke `--ddd-radius-lg`, background ke Polaris surface token, tambahkan `box-shadow`, `transition`, dan `.task-item:hover`
-  - Update `.task-checkbox` — ganti `accent-color` ke `--ddd-theme-polaris-primary` dengan fallback, ganti `:focus-visible` ke box-shadow style
-  - Update `.task-text` — tambahkan `line-height: 1.5`, ganti color ke `--ddd-theme-polaris-text` dengan fallback
-  - Update `.delete-button` — tambahkan `font-weight: var(--ddd-font-weight-bold)`, ganti border-radius ke `--ddd-radius-md`, border ke `1.5px solid`, tambahkan `transition`
-  - Update `.delete-button:focus-visible` — ganti ke `box-shadow: 0 0 0 3px rgba(...)` style
-  - Update `.empty-message` — tambahkan `background`, `border: 1.5px dashed`, `border-radius: --ddd-radius-lg`, ganti padding ke `spacing-10 spacing-8`, font-size ke `--ddd-font-size-m`
-  - Tambahkan `.todo-heading` class untuk heading opsional (font-size xl, font-weight bold, Polaris primary color)
-  - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
+  - [x] 5.8 Terapkan Polaris styling sesuai design.md
+    - Update `:host` — tambahkan `padding: var(--ddd-spacing-8)`, `border-radius: var(--ddd-radius-lg)`, `box-shadow`, `max-width: 640px`, dan ganti background/color ke token Polaris dengan fallback
+    - Update `.task-input` — ganti border ke `1.5px solid var(--ddd-theme-polaris-border, ...)`, border-radius ke `--ddd-radius-md`, tambahkan `outline: none` dan `transition`
+    - Update `.task-input:focus` — ganti box-shadow ke `0 0 0 3px var(--ddd-theme-polaris-focus-ring, ...)`
+    - Update `.add-button` — tambahkan `font-weight: var(--ddd-font-weight-bold)`, ganti border-radius ke `--ddd-radius-xl` (pill), tambahkan `border: none`, `transition`, `box-shadow`, dan token Polaris untuk background/color
+    - Update `.add-button:hover` — gunakan `--ddd-theme-polaris-primary-hover` dengan fallback
+    - Update `.add-button:focus-visible` — ganti ke `box-shadow: 0 0 0 3px` dengan Polaris focus-ring token
+    - Update `.task-item` — ganti border-radius ke `--ddd-radius-lg`, background ke Polaris surface token, tambahkan `box-shadow`, `transition`, dan `.task-item:hover`
+    - Update `.task-checkbox` — ganti `accent-color` ke `--ddd-theme-polaris-primary` dengan fallback, ganti `:focus-visible` ke box-shadow style
+    - Update `.task-text` — tambahkan `line-height: 1.5`, ganti color ke `--ddd-theme-polaris-text` dengan fallback
+    - Update `.delete-button` — tambahkan `font-weight: var(--ddd-font-weight-bold)`, ganti border-radius ke `--ddd-radius-md`, border ke `1.5px solid`, tambahkan `transition`
+    - Update `.delete-button:focus-visible` — ganti ke `box-shadow: 0 0 0 3px rgba(...)` style
+    - Update `.empty-message` — tambahkan `background`, `border: 1.5px dashed`, `border-radius: --ddd-radius-lg`, ganti padding ke `spacing-10 spacing-8`, font-size ke `--ddd-font-size-m`
+    - Tambahkan `.todo-heading` class untuk heading opsional (font-size xl, font-weight bold, Polaris primary color)
+    - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5_
 
 - [x] 6. Implementasi demo page
   - [x] 6.1 Perbarui `demo/index.html` agar memuat komponen dan menggunakannya
@@ -174,38 +174,56 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Tambahkan `<todo-list></todo-list>` dalam body halaman demo
     - _Requirements: 1.5_
 
-- [~] 7. Checkpoint — Verifikasi rendering dan DDD compliance
+- [ ] 7. Checkpoint — Verifikasi rendering dan DDD compliance
   - Jalankan `npm test` dari `elements/todo-list/`
   - Jalankan `hax audit` untuk verifikasi DDD compliance
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 8. Implementasi unit tests untuk edge cases dan struktur komponen
-  - [~] 8.1 Tulis unit tests untuk struktur komponen dan inisialisasi
+- [x] 8. Implementasi unit tests untuk edge cases dan struktur komponen
+  - [x] 8.1 Tulis unit tests untuk struktur komponen dan inisialisasi
     - Verifikasi `tasks` diinisialisasi sebagai `[]`
     - Verifikasi elemen `<input>` dan Add Button ada di shadowRoot
     - Verifikasi `this.t` mendefinisikan semua key i18n yang diperlukan
     - Verifikasi `haxProperties` menyertakan `canScale`, `canPosition`, `canEditSource`, `gizmo`, `settings`
     - _Requirements: 1.1, 1.2, 2.1, 8.2, 8.4_
 
-  - [ ]* 8.2 Tulis unit tests untuk Complete Toggle dan aksesibilitas
+  - [ ] 8.2 Tulis unit tests untuk Complete Toggle dan aksesibilitas
     - Verifikasi Complete Toggle berupa `<input type="checkbox">`
     - Verifikasi Input Field memiliki `<label>` terhubung atau `aria-label`
     - Verifikasi pesan kosong tampil saat `tasks = []`
     - _Requirements: 5.1, 6.2, 9.2, 9.3_
 
-- [~] 9. Final checkpoint — Build dan pre-PR checklist
+- [ ] 9. Final checkpoint — Build dan pre-PR checklist
   - Jalankan `npm test` — semua test harus lulus
   - Jalankan `npm run lint` — tidak ada lint error
   - Jalankan `hax audit` — DDD compliance terkonfirmasi
   - Jalankan `yarn run build` — `custom-elements.json` ter-generate
   - Ensure all tests pass, ask the user if questions arise.
 
+- [ ] 10. Tulis property tests dan unit tests yang masih tersisa
+  - [ ] 10.1 Tulis property test untuk Property 9 (Completed Task Visual Differentiation)
+    - Task dengan `completed = true` → `<span class="task-text">` harus memiliki class `completed`
+    - Task dengan `completed = false` → `<span class="task-text">` tidak boleh memiliki class `completed`
+    - **Property 9: Completed Task Visual Differentiation**
+    - **Validates: Requirements 5.4**
+  - [ ] 10.2 Tulis property test untuk Property 10 (Rendering Order Preserves Insertion Order)
+    - Generate urutan penambahan T1..TN via `_addTask()` berulang
+    - Verifikasi urutan `<li class="task-item">` yang dirender sesuai urutan penambahan
+    - **Property 10: Rendering Order Preserves Insertion Order**
+    - **Validates: Requirements 6.3**
+  - [ ] 10.3 Tulis unit tests untuk Complete Toggle dan aksesibilitas (Task 8.2)
+    - Verifikasi Complete Toggle berupa `<input type="checkbox">`
+    - Verifikasi Input Field memiliki `<label>` terhubung atau `aria-label`
+    - Verifikasi pesan kosong tampil saat `tasks = []`
+    - _Requirements: 5.1, 6.2, 9.2, 9.3_
+
 ---
 
 ## Notes
 
 - Task bertanda `*` bersifat opsional dan dapat dilewati untuk MVP lebih cepat
-- Design dokumen sudah menyediakan implementasi lengkap — gunakan sebagai referensi utama saat mengimplementasikan setiap task
+- Implementasi inti komponen telah selesai sepenuhnya — `todo-list.js` mencakup mixin chain, semua reactive properties, logika bisnis, rendering, styles Polaris, aksesibilitas, i18n, validasi panjang, dan `haxProperties`
+- Property tests 1–8 telah ditulis dan berjalan; yang tersisa hanya property tests 9–10 dan unit tests aksesibilitas (semua opsional, ditampung di task 10)
 - Setiap property test menggunakan `fast-check` dengan minimum 100 iterasi (`FC_RUNS = 100`)
 - Seluruh string UI harus melalui `this.t` (I18NMixin) — tidak ada string hardcoded di template
 - `custom-elements.json` di-generate otomatis via `yarn run build` — jangan edit manual
@@ -224,7 +242,8 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     { "id": 3, "tasks": ["3.10", "3.11", "3.12"] },
     { "id": 4, "tasks": ["5.1", "5.2", "5.3"] },
     { "id": 5, "tasks": ["5.4", "5.5", "5.6", "5.7", "5.8", "6.1"] },
-    { "id": 6, "tasks": ["8.1", "8.2"] }
+    { "id": 6, "tasks": ["8.1", "8.2"] },
+    { "id": 7, "tasks": ["10.1", "10.2", "10.3"] }
   ]
 }
 ```

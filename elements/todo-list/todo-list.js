@@ -18,7 +18,7 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
   constructor() {
     super();
     this.tasks = [];
-    this._validationError = '';
+    this._validationError = "";
     this.t = {
       addTask: "Add Task",
       inputPlaceholder: "Enter a new task...",
@@ -40,11 +40,15 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
           display: block;
           font-family: var(--ddd-font-primary);
           padding: var(--ddd-spacing-8);
-          background: var(--ddd-theme-polaris-background, var(--ddd-theme-background));
+          background: var(
+            --ddd-theme-polaris-background,
+            var(--ddd-theme-background)
+          );
           color: var(--ddd-theme-polaris-text, var(--ddd-theme-primary));
           max-width: 640px;
           border-radius: var(--ddd-radius-lg);
-          box-shadow: 0 var(--ddd-spacing-1) var(--ddd-spacing-5) rgba(0, 0, 0, 0.08);
+          box-shadow: 0 var(--ddd-spacing-1) var(--ddd-spacing-5)
+            rgba(0, 0, 0, 0.08);
         }
 
         /* ── Polaris heading ─────────────────────────────────────────────── */
@@ -69,17 +73,24 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
           padding: var(--ddd-spacing-4) var(--ddd-spacing-5);
           font-family: var(--ddd-font-primary);
           font-size: var(--ddd-font-size-s);
-          border: 1.5px solid var(--ddd-theme-polaris-border, var(--ddd-theme-accent));
+          border: 1.5px solid
+            var(--ddd-theme-polaris-border, var(--ddd-theme-accent));
           border-radius: var(--ddd-radius-md);
-          background: var(--ddd-theme-polaris-surface, var(--ddd-theme-background));
+          background: var(
+            --ddd-theme-polaris-surface,
+            var(--ddd-theme-background)
+          );
           color: var(--ddd-theme-polaris-text, var(--ddd-theme-primary));
           outline: none;
-          transition: border-color 0.15s ease, box-shadow 0.15s ease;
+          transition:
+            border-color 0.15s ease,
+            box-shadow 0.15s ease;
         }
 
         .task-input:focus {
           border-color: var(--ddd-theme-polaris-accent, var(--ddd-theme-link));
-          box-shadow: 0 0 0 3px var(--ddd-theme-polaris-focus-ring, var(--ddd-theme-link-light));
+          box-shadow: 0 0 0 3px
+            var(--ddd-theme-polaris-focus-ring, var(--ddd-theme-link-light));
         }
 
         /* ── Polaris pill-style Add button ───────────────────────────────── */
@@ -89,23 +100,34 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
           font-size: var(--ddd-font-size-s);
           font-weight: var(--ddd-font-weight-bold);
           background: var(--ddd-theme-polaris-primary, var(--ddd-theme-accent));
-          color: var(--ddd-theme-polaris-primary-text, var(--ddd-theme-background));
+          color: var(
+            --ddd-theme-polaris-primary-text,
+            var(--ddd-theme-background)
+          );
           border: none;
           border-radius: var(--ddd-radius-xl);
           cursor: pointer;
           white-space: nowrap;
-          transition: background 0.15s ease, box-shadow 0.15s ease;
-          box-shadow: 0 var(--ddd-spacing-1) var(--ddd-spacing-3) rgba(0, 0, 0, 0.12);
+          transition:
+            background 0.15s ease,
+            box-shadow 0.15s ease;
+          box-shadow: 0 var(--ddd-spacing-1) var(--ddd-spacing-3)
+            rgba(0, 0, 0, 0.12);
         }
 
         .add-button:hover {
-          background: var(--ddd-theme-polaris-primary-hover, var(--ddd-theme-link));
-          box-shadow: 0 var(--ddd-spacing-1) var(--ddd-spacing-4) rgba(0, 0, 0, 0.18);
+          background: var(
+            --ddd-theme-polaris-primary-hover,
+            var(--ddd-theme-link)
+          );
+          box-shadow: 0 var(--ddd-spacing-1) var(--ddd-spacing-4)
+            rgba(0, 0, 0, 0.18);
         }
 
         .add-button:focus-visible {
           outline: none;
-          box-shadow: 0 0 0 3px var(--ddd-theme-polaris-focus-ring, var(--ddd-theme-link-light));
+          box-shadow: 0 0 0 3px
+            var(--ddd-theme-polaris-focus-ring, var(--ddd-theme-link-light));
         }
 
         /* ── Task list ───────────────────────────────────────────────────── */
@@ -122,15 +144,20 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
           gap: var(--ddd-spacing-4);
           padding: var(--ddd-spacing-4) var(--ddd-spacing-5);
           margin-bottom: var(--ddd-spacing-3);
-          background: var(--ddd-theme-polaris-surface, var(--ddd-theme-background-secondary));
+          background: var(
+            --ddd-theme-polaris-surface,
+            var(--ddd-theme-background-secondary)
+          );
           border-radius: var(--ddd-radius-lg);
-          border-left: var(--ddd-spacing-1) solid var(--ddd-theme-polaris-accent, var(--ddd-theme-accent));
+          border-left: var(--ddd-spacing-1) solid
+            var(--ddd-theme-polaris-accent, var(--ddd-theme-accent));
           box-shadow: 0 1px var(--ddd-spacing-3) rgba(0, 0, 0, 0.06);
           transition: box-shadow 0.15s ease;
         }
 
         .task-item:hover {
-          box-shadow: 0 var(--ddd-spacing-1) var(--ddd-spacing-5) rgba(0, 0, 0, 0.1);
+          box-shadow: 0 var(--ddd-spacing-1) var(--ddd-spacing-5)
+            rgba(0, 0, 0, 0.1);
         }
 
         /* ── Checkbox ────────────────────────────────────────────────────── */
@@ -138,13 +165,17 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
           width: var(--ddd-spacing-5);
           height: var(--ddd-spacing-5);
           cursor: pointer;
-          accent-color: var(--ddd-theme-polaris-primary, var(--ddd-theme-accent));
+          accent-color: var(
+            --ddd-theme-polaris-primary,
+            var(--ddd-theme-accent)
+          );
           flex-shrink: 0;
         }
 
         .task-checkbox:focus-visible {
           outline: none;
-          box-shadow: 0 0 0 3px var(--ddd-theme-polaris-focus-ring, var(--ddd-theme-link-light));
+          box-shadow: 0 0 0 3px
+            var(--ddd-theme-polaris-focus-ring, var(--ddd-theme-link-light));
         }
 
         /* ── Task text ───────────────────────────────────────────────────── */
@@ -174,7 +205,9 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
           border-radius: var(--ddd-radius-md);
           cursor: pointer;
           flex-shrink: 0;
-          transition: background 0.15s ease, color 0.15s ease;
+          transition:
+            background 0.15s ease,
+            color 0.15s ease;
         }
 
         .delete-button:hover {
@@ -184,7 +217,8 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
 
         .delete-button:focus-visible {
           outline: none;
-          box-shadow: 0 0 0 3px rgba(var(--ddd-theme-error-rgb, 220, 38, 38), 0.25);
+          box-shadow: 0 0 0 3px
+            rgba(var(--ddd-theme-error-rgb, 220, 38, 38), 0.25);
         }
 
         /* ── Polaris empty state ─────────────────────────────────────────── */
@@ -195,9 +229,13 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
           font-family: var(--ddd-font-primary);
           font-size: var(--ddd-font-size-m);
           font-style: italic;
-          background: var(--ddd-theme-polaris-surface, var(--ddd-theme-background-secondary));
+          background: var(
+            --ddd-theme-polaris-surface,
+            var(--ddd-theme-background-secondary)
+          );
           border-radius: var(--ddd-radius-lg);
-          border: 1.5px dashed var(--ddd-theme-polaris-border, var(--ddd-theme-accent));
+          border: 1.5px dashed
+            var(--ddd-theme-polaris-border, var(--ddd-theme-accent));
           margin-top: var(--ddd-spacing-4);
         }
 
@@ -236,9 +274,10 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
       </div>
 
       ${this._validationError
-        ? html`<p id="task-input-error" role="alert" class="validation-error">${this._validationError}</p>`
-        : ''}
-
+        ? html`<p id="task-input-error" role="alert" class="validation-error">
+            ${this._validationError}
+          </p>`
+        : ""}
       ${this.tasks.length === 0
         ? html`<p class="empty-message">${this.t.emptyMessage}</p>`
         : html`
@@ -289,7 +328,7 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
 
   _handleInputChange(e) {
     if (e.target.value.trim().length === 0) {
-      this._validationError = '';
+      this._validationError = "";
     }
   }
 
@@ -309,7 +348,7 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
 
     // Empty/whitespace check — clear error and return
     if (!text) {
-      this._validationError = '';
+      this._validationError = "";
       return;
     }
 
@@ -326,7 +365,7 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
     }
 
     // Valid — clear error and add task
-    this._validationError = '';
+    this._validationError = "";
     const newTask = {
       id:
         typeof crypto !== "undefined" && crypto.randomUUID
@@ -336,7 +375,7 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
       completed: false,
     };
     this.tasks = [...this.tasks, newTask];
-    input.value = '';
+    input.value = "";
     input.focus();
   }
 

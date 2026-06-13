@@ -344,6 +344,126 @@ describe('todo-list', () => {
   })
 
   /**
+   * Property 9: Completed Task Visual Differentiation
+   * Validates: Requirements 5.4
+   *
+   * For any task with completed = true, the rendered <span class="task-text">
+   * must have class `completed`. For any task with completed = false, the span
+   * must NOT have class `completed`.
+   */
+  describe('Property 9: Completed Task Visual Differentiation', () => {
+    it('span.task-text has class "completed" iff task.completed === true', async () => {
+      const validTaskArbitrary = fc.record({
+        id: fc.uuid(),
+        text: fc.string({ minLength: 1 }).filter(s => s.trim() !== ''),
+        completed: fc.boolean(),
+      })
+
+      await fc.assert(
+        fc.asyncProperty(
+          fc.array(validTaskArbitrary, { minLength: 1, maxLength: 20 }),
+          async (tasks) => {
+            const el = await fixture(html`<todo-list></todo-list>`)
+            el.tasks = tasks
+            await el.updateComplete
+
+            const listItems = el.shadowRoot.querySelectorAll('li.task-item')
+
+            for (let i = 0; i < tasks.length; i++) {
+              const task = tasks[i]
+              const li = listItems[i]
+              const span = li.querySelector('span.task-text')
+
+              if (task.completed) {
+                expect(span.classList.contains('completed')).to.equal(true)
+              } else {
+                expect(span.classList.contains('completed')).to.equal(false)
+              }
+            }
+          }
+        ),
+        { numRuns: FC_RUNS }
+      )
+    })
+  })
+
+  /**
+   * Property 10: Rendering Order Preserves Insertion Order
+   * Validates: Requirements 6.3
+   *
+   * For any sequence of task additions T1, T2, ..., TN, the order of rendered
+   * elements in the task list must match insertion order — T1 rendered first,
+   * TN rendered last. Verified by matching data-id attributes of <li> elements
+   * against the tasks array order.
+   */
+  describe('Property 10: Rendering Order Preserves Insertion Order', () => {
+    it('rendered li[data-id] order matches tasks array insertion order', async () => {
+      const validTaskArbitrary = fc.record({
+        id: fc.uuid(),
+        text: fc.string({ minLength: 1 }).filter(s => s.trim() !== ''),
+        completed: fc.boolean(),
+      })
+
+      await fc.assert(
+        fc.asyncProperty(
+          fc.array(validTaskArbitrary, { minLength: 1, maxLength: 20 }),
+          async (tasks) => {
+            const el = await fixture(html`<todo-list></todo-list>`)
+            el.tasks = tasks
+            await el.updateComplete
+
+            const listItems = el.shadowRoot.querySelectorAll('li.task-item')
+
+            // Number of rendered items must match tasks length
+            expect(listItems.length).to.equal(tasks.length)
+
+            // Each rendered li must appear in the same order as the tasks array
+            for (let i = 0; i < tasks.length; i++) {
+              const renderedId = listItems[i].getAttribute('data-id')
+              expect(renderedId).to.equal(tasks[i].id)
+            }
+          }
+        ),
+        { numRuns: FC_RUNS }
+      )
+    })
+
+    it('tasks added via _addTask() are rendered in FIFO order', async () => {
+      await fc.assert(
+        fc.asyncProperty(
+          fc.array(
+            fc.string({ minLength: 3, maxLength: 20 }).filter(s => s.trim().length >= 3),
+            { minLength: 2, maxLength: 10 }
+          ),
+          async (textList) => {
+            const el = await fixture(html`<todo-list></todo-list>`)
+            el.tasks = []
+            await el.updateComplete
+
+            // Add tasks one by one via _addTask()
+            const input = el.shadowRoot.querySelector('#task-input')
+            for (const text of textList) {
+              input.value = text
+              el._addTask()
+              await el.updateComplete
+            }
+
+            const listItems = el.shadowRoot.querySelectorAll('li.task-item')
+            expect(listItems.length).to.equal(textList.length)
+
+            // Verify rendered text order matches insertion order
+            for (let i = 0; i < textList.length; i++) {
+              const taskText = listItems[i].querySelector('.task-text')
+              expect(taskText.textContent.trim()).to.equal(textList[i].trim())
+            }
+          }
+        ),
+        { numRuns: FC_RUNS }
+      )
+    })
+  })
+
+  /**
    * Property 3: Task Addition Increases List Length
    * Validates: Requirements 3.2, 6.1, 6.3
    *
