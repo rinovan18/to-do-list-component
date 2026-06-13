@@ -152,7 +152,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - **Validates: Requirements 6.3**
     - Generate urutan penambahan T1..TN, verifikasi urutan `<li>` sesuai urutan penambahan
 
-- [ ] 5.8 Terapkan Polaris styling sesuai design.md
+- [x] 5.8 Terapkan Polaris styling sesuai design.md
   - Update `:host` — tambahkan `padding: var(--ddd-spacing-8)`, `border-radius: var(--ddd-radius-lg)`, `box-shadow`, `max-width: 640px`, dan ganti background/color ke token Polaris dengan fallback
   - Update `.task-input` — ganti border ke `1.5px solid var(--ddd-theme-polaris-border, ...)`, border-radius ke `--ddd-radius-md`, tambahkan `outline: none` dan `transition`
   - Update `.task-input:focus` — ganti box-shadow ke `0 0 0 3px var(--ddd-theme-polaris-focus-ring, ...)`
@@ -174,13 +174,13 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Tambahkan `<todo-list></todo-list>` dalam body halaman demo
     - _Requirements: 1.5_
 
-- [ ] 7. Checkpoint — Verifikasi rendering dan DDD compliance
+- [~] 7. Checkpoint — Verifikasi rendering dan DDD compliance
   - Jalankan `npm test` dari `elements/todo-list/`
   - Jalankan `hax audit` untuk verifikasi DDD compliance
   - Ensure all tests pass, ask the user if questions arise.
 
 - [ ] 8. Implementasi unit tests untuk edge cases dan struktur komponen
-  - [ ] 8.1 Tulis unit tests untuk struktur komponen dan inisialisasi
+  - [~] 8.1 Tulis unit tests untuk struktur komponen dan inisialisasi
     - Verifikasi `tasks` diinisialisasi sebagai `[]`
     - Verifikasi elemen `<input>` dan Add Button ada di shadowRoot
     - Verifikasi `this.t` mendefinisikan semua key i18n yang diperlukan
@@ -193,7 +193,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Verifikasi pesan kosong tampil saat `tasks = []`
     - _Requirements: 5.1, 6.2, 9.2, 9.3_
 
-- [ ] 9. Final checkpoint — Build dan pre-PR checklist
+- [~] 9. Final checkpoint — Build dan pre-PR checklist
   - Jalankan `npm test` — semua test harus lulus
   - Jalankan `npm run lint` — tidak ada lint error
   - Jalankan `hax audit` — DDD compliance terkonfirmasi
