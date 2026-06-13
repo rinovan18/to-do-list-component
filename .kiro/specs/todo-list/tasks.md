@@ -29,7 +29,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - _Requirements: 2.1, 2.4, 8.2, 8.4_
 
 - [ ] 3. Implementasi metode logika bisnis (tanpa rendering)
-  - [ ] 3.1 Implementasi `_addTask()` dengan validasi input
+  - [x] 3.1 Implementasi `_addTask()` dengan validasi input
     - Baca nilai `<input id="task-input">` dari shadowRoot
     - Trim nilai input; jika kosong atau hanya whitespace → return early tanpa perubahan
     - Buat task object: `{ id: crypto.randomUUID(), text, completed: false }`
