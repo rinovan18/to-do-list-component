@@ -126,6 +126,49 @@ describe('todo-list', () => {
   })
 
   /**
+   * Property 5: Task Deletion Removes Exactly One Task
+   * Validates: Requirements 4.2
+   *
+   * For any array tasks with length N and any task in the array, deleting that
+   * task by its id must produce a new tasks array with length N - 1 and no
+   * element with the same id as the deleted task.
+   */
+  describe('Property 5: Task Deletion Removes Exactly One Task', () => {
+    it('deleting a task reduces tasks.length by exactly 1 and removes the id', async () => {
+      const validTaskArbitrary = fc.record({
+        id: fc.uuid(),
+        text: fc.string({ minLength: 1 }).filter(s => s.trim() !== ''),
+        completed: fc.boolean(),
+      })
+
+      await fc.assert(
+        fc.asyncProperty(
+          fc.array(validTaskArbitrary, { minLength: 1, maxLength: 20 }).chain(
+            arr => fc.tuple(fc.constant(arr), fc.integer({ min: 0, max: arr.length - 1 }))
+          ),
+          async ([tasks, index]) => {
+            const el = await fixture(html`<todo-list></todo-list>`)
+            el.tasks = tasks
+            await el.updateComplete
+
+            const targetTask = el.tasks[index]
+            const lengthBefore = el.tasks.length
+
+            el._handleDelete(targetTask.id)
+            await el.updateComplete
+
+            // Length must drop by exactly 1
+            expect(el.tasks).to.have.length(lengthBefore - 1)
+            // No task with the deleted id may remain
+            expect(el.tasks.every(t => t.id !== targetTask.id)).to.equal(true)
+          }
+        ),
+        { numRuns: FC_RUNS }
+      )
+    })
+  })
+
+  /**
    * Property 3: Task Addition Increases List Length
    * Validates: Requirements 3.2, 6.1, 6.3
    *

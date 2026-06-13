@@ -60,12 +60,12 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - **Validates: Requirements 3.3**
     - Setelah `_addTask()` berhasil, verifikasi `shadowRoot.querySelector('#task-input').value === ''`
 
-  - [-] 3.6 Implementasi `_handleDelete(id)` dan `_handleToggleComplete(id, checked)`
+  - [x] 3.6 Implementasi `_handleDelete(id)` dan `_handleToggleComplete(id, checked)`
     - `_handleDelete`: `this.tasks = this.tasks.filter(task => task.id !== id)`
     - `_handleToggleComplete`: `this.tasks = this.tasks.map(task => task.id === id ? { ...task, completed: checked } : task)`
     - _Requirements: 4.2, 5.2, 5.3_
 
-  - [ ]* 3.7 Tulis property test untuk Property 5 (Task Deletion Removes Exactly One Task)
+  - [x] 3.7 Tulis property test untuk Property 5 (Task Deletion Removes Exactly One Task)
     - **Property 5: Task Deletion Removes Exactly One Task**
     - **Validates: Requirements 4.2**
     - Generate array tasks (panjang ≥ 1), pilih index acak
