@@ -59,7 +59,6 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
           border-radius: var(--ddd-radius-sm);
           background: var(--ddd-theme-background);
           color: var(--ddd-theme-primary);
-          outline: none;
         }
 
         .task-input:focus {
@@ -73,7 +72,6 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
           font-size: var(--ddd-font-size-s);
           background: var(--ddd-theme-accent);
           color: var(--ddd-theme-background);
-          border: none;
           border-radius: var(--ddd-radius-sm);
           cursor: pointer;
         }
@@ -89,8 +87,8 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
 
         .task-list {
           list-style: none;
-          padding: 0;
-          margin: 0;
+          padding: var(--ddd-spacing-0);
+          margin: var(--ddd-spacing-0);
         }
 
         .task-item {
@@ -165,20 +163,8 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
           color: var(--ddd-theme-error);
           font-family: var(--ddd-font-primary);
           font-size: var(--ddd-font-size-xs);
-          margin: 0;
-          padding: var(--ddd-spacing-2) 0;
-        }
-
-        .sr-only {
-          position: absolute;
-          width: 1px;
-          height: 1px;
-          padding: 0;
-          margin: -1px;
-          overflow: hidden;
-          clip: rect(0, 0, 0, 0);
-          white-space: nowrap;
-          border: 0;
+          margin: var(--ddd-spacing-0);
+          padding: var(--ddd-spacing-2) var(--ddd-spacing-0);
         }
       `,
     ];
@@ -187,7 +173,6 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
   render() {
     return html`
       <div class="input-area">
-        <label for="task-input" class="sr-only">${this.t.addTask}</label>
         <input
           id="task-input"
           class="task-input"
