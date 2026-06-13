@@ -90,6 +90,42 @@ describe('todo-list', () => {
   })
 
   /**
+   * Property 4: Input Cleared After Addition
+   * Validates: Requirements 3.3
+   *
+   * For any valid (non-whitespace) input string, after _addTask() successfully
+   * adds a task, the value of shadowRoot.querySelector('#task-input') must be
+   * an empty string ''.
+   */
+  describe('Property 4: Input Cleared After Addition', () => {
+    it('input field is cleared to empty string after a task is successfully added', async () => {
+      const el = await fixture(html`<todo-list></todo-list>`)
+      await el.updateComplete
+
+      await fc.assert(
+        fc.asyncProperty(
+          fc.string({ minLength: 1 }).filter(s => s.trim() !== ''),
+          async (text) => {
+            // Reset tasks before each iteration
+            el.tasks = []
+            await el.updateComplete
+
+            // Set input value and call _addTask() directly
+            const input = el.shadowRoot.querySelector('#task-input')
+            input.value = text
+            el._addTask()
+            await el.updateComplete
+
+            // Input field must be cleared after successful task addition
+            expect(el.shadowRoot.querySelector('#task-input').value).to.equal('')
+          }
+        ),
+        { numRuns: FC_RUNS }
+      )
+    })
+  })
+
+  /**
    * Property 3: Task Addition Increases List Length
    * Validates: Requirements 3.2, 6.1, 6.3
    *
