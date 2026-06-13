@@ -98,7 +98,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Gunakan key ini di `_addTask()` saat menetapkan `_validationError`
     - _Requirements: 10.7, 8.2_
 
-  - [ ] 3.12 Tambahkan aksesibilitas untuk error message (`aria-describedby` dan `role="alert"`)
+  - [x] 3.12 Tambahkan aksesibilitas untuk error message (`aria-describedby` dan `role="alert"`)
     - Tambahkan atribut `aria-describedby="task-input-error"` pada elemen `<input id="task-input">`
     - Pastikan elemen error message menggunakan `role="alert"` agar screen reader mengumumkan otomatis
     - _Requirements: 9.5, 9.6_
