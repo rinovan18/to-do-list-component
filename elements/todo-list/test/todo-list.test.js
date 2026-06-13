@@ -258,6 +258,39 @@ describe('todo-list', () => {
   })
 
   /**
+   * Property 7: Render Count Matches Tasks Length
+   * Validates: Requirements 6.1
+   *
+   * For any array tasks with length N, the number of <li class="task-item">
+   * elements rendered inside <ul class="task-list"> must equal exactly N.
+   */
+  describe('Property 7: Render Count Matches Tasks Length', () => {
+    it('number of rendered li.task-item elements equals tasks.length for any N', async () => {
+      const validTaskArbitrary = fc.record({
+        id: fc.uuid(),
+        text: fc.string({ minLength: 1 }).filter(s => s.trim() !== ''),
+        completed: fc.boolean(),
+      })
+
+      await fc.assert(
+        fc.asyncProperty(
+          fc.array(validTaskArbitrary, { maxLength: 20 }),
+          async (tasks) => {
+            const el = await fixture(html`<todo-list></todo-list>`)
+            el.tasks = tasks
+            await el.updateComplete
+
+            const N = tasks.length
+            const renderedItems = el.shadowRoot.querySelectorAll('li.task-item')
+            expect(renderedItems.length).to.equal(N)
+          }
+        ),
+        { numRuns: FC_RUNS }
+      )
+    })
+  })
+
+  /**
    * Property 3: Task Addition Increases List Length
    * Validates: Requirements 3.2, 6.1, 6.3
    *

@@ -130,7 +130,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Render `<ul class="task-list" aria-label="Task list">` yang memanggil `_renderTask` per task
     - _Requirements: 4.1, 4.3, 5.1, 5.4, 6.1, 6.3, 9.1, 9.2_
 
-  - [ ]* 5.4 Tulis property test untuk Property 7 (Render Count Matches Tasks Length)
+  - [x] 5.4 Tulis property test untuk Property 7 (Render Count Matches Tasks Length)
     - **Property 7: Render Count Matches Tasks Length**
     - **Validates: Requirements 6.1**
     - Generate array tasks dengan panjang acak N
