@@ -291,6 +291,59 @@ describe('todo-list', () => {
   })
 
   /**
+   * Property 8: Per-Task Elements Invariant
+   * Validates: Requirements 4.1, 5.1, 9.1
+   *
+   * For any array of tasks rendered by TodoList, each <li class="task-item">
+   * must contain exactly:
+   *   - 1 input[type="checkbox"]
+   *   - 1 element with class .task-text
+   *   - 1 element with class .delete-button that has a non-empty aria-label
+   */
+  describe('Property 8: Per-Task Elements Invariant', () => {
+    it('each task item has exactly 1 checkbox, 1 .task-text, and 1 .delete-button with non-empty aria-label', async () => {
+      const validTaskArbitrary = fc.record({
+        id: fc.uuid(),
+        text: fc.string({ minLength: 1 }).filter(s => s.trim() !== ''),
+        completed: fc.boolean(),
+      })
+
+      await fc.assert(
+        fc.asyncProperty(
+          fc.array(validTaskArbitrary, { minLength: 1, maxLength: 20 }),
+          async (tasks) => {
+            const el = await fixture(html`<todo-list></todo-list>`)
+            el.tasks = tasks
+            await el.updateComplete
+
+            const listItems = el.shadowRoot.querySelectorAll('li.task-item')
+
+            for (const li of listItems) {
+              // Exactly 1 checkbox
+              const checkboxes = li.querySelectorAll('input[type="checkbox"]')
+              expect(checkboxes.length).to.equal(1)
+
+              // Exactly 1 .task-text
+              const taskTexts = li.querySelectorAll('.task-text')
+              expect(taskTexts.length).to.equal(1)
+
+              // Exactly 1 .delete-button
+              const deleteButtons = li.querySelectorAll('.delete-button')
+              expect(deleteButtons.length).to.equal(1)
+
+              // .delete-button must have a non-empty aria-label
+              const ariaLabel = deleteButtons[0].getAttribute('aria-label')
+              expect(ariaLabel).to.be.a('string')
+              expect(ariaLabel.trim().length).to.be.greaterThan(0)
+            }
+          }
+        ),
+        { numRuns: FC_RUNS }
+      )
+    })
+  })
+
+  /**
    * Property 3: Task Addition Increases List Length
    * Validates: Requirements 3.2, 6.1, 6.3
    *

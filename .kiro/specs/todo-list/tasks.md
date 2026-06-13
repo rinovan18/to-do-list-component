@@ -136,7 +136,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Generate array tasks dengan panjang acak N
     - Setelah render, verifikasi `shadowRoot.querySelectorAll('li.task-item').length === N`
 
-  - [ ]* 5.5 Tulis property test untuk Property 8 (Per-Task Elements Invariant)
+  - [x] 5.5 Tulis property test untuk Property 8 (Per-Task Elements Invariant)
     - **Property 8: Per-Task Elements Invariant**
     - **Validates: Requirements 4.1, 5.1, 9.1**
     - Untuk setiap `<li>`, verifikasi ada tepat 1 checkbox, 1 `.task-text`, 1 `.delete-button` dengan `aria-label` non-empty
