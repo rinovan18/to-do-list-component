@@ -11,12 +11,14 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
     return {
       ...super.properties,
       tasks: { type: Array },
+      _validationError: { type: String },
     };
   }
 
   constructor() {
     super();
     this.tasks = [];
+    this._validationError = '';
     this.t = {
       addTask: "Add Task",
       inputPlaceholder: "Enter a new task...",
@@ -157,6 +159,14 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
           font-style: italic;
         }
 
+        .validation-error {
+          color: var(--ddd-theme-error);
+          font-family: var(--ddd-font-primary);
+          font-size: var(--ddd-font-size-xs);
+          margin: 0;
+          padding: var(--ddd-spacing-2) 0;
+        }
+
         .sr-only {
           position: absolute;
           width: 1px;
@@ -182,7 +192,9 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
           type="text"
           placeholder="${this.t.inputPlaceholder}"
           aria-label="${this.t.addTask}"
+          aria-describedby="task-input-error"
           @keydown="${this._handleInputKeydown}"
+          @input="${this._handleInputChange}"
         />
         <button
           class="add-button"
@@ -192,6 +204,10 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
           ${this.t.addTask}
         </button>
       </div>
+
+      ${this._validationError
+        ? html`<p id="task-input-error" role="alert" class="validation-error">${this._validationError}</p>`
+        : ''}
 
       ${this.tasks.length === 0
         ? html`<p class="empty-message">${this.t.emptyMessage}</p>`
@@ -241,6 +257,12 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
     this._addTask();
   }
 
+  _handleInputChange(e) {
+    if (e.target.value.trim().length === 0) {
+      this._validationError = '';
+    }
+  }
+
   _handleDelete(id) {
     this.tasks = this.tasks.filter((task) => task.id !== id);
   }
@@ -254,7 +276,27 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
   _addTask() {
     const input = this.shadowRoot.querySelector("#task-input");
     const text = input.value.trim();
-    if (!text) return;
+
+    // Empty/whitespace check — clear error and return
+    if (!text) {
+      this._validationError = '';
+      return;
+    }
+
+    // Min length check
+    if (text.length < 3) {
+      this._validationError = 'min 3 karakter';
+      return;
+    }
+
+    // Max length check
+    if (text.length > 50) {
+      this._validationError = 'maks 50 karakter';
+      return;
+    }
+
+    // Valid — clear error and add task
+    this._validationError = '';
     const newTask = {
       id:
         typeof crypto !== "undefined" && crypto.randomUUID
@@ -264,7 +306,7 @@ class TodoList extends I18NMixin(DDDSuper(LitElement)) {
       completed: false,
     };
     this.tasks = [...this.tasks, newTask];
-    input.value = "";
+    input.value = '';
     input.focus();
   }
 

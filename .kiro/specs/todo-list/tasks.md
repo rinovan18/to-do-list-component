@@ -82,7 +82,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - `_handleAddClick`: panggil `_addTask()`
     - _Requirements: 3.1, 3.2, 3.4_
 
-  - [ ] 3.10 Implementasi validasi panjang karakter di `_addTask()` dan error message UI
+  - [x] 3.10 Implementasi validasi panjang karakter di `_addTask()` dan error message UI
     - Tambahkan pengecekan: jika `text.length < 3` → set pesan error "min 3 karakter", return early
     - Tambahkan pengecekan: jika `text.length > 50` → set pesan error "maks 50 karakter", return early
     - Tambahkan reactive property `_validationError` (string, default `''`) untuk menyimpan pesan error

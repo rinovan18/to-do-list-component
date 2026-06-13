@@ -63,7 +63,7 @@ describe('todo-list', () => {
 
       await fc.assert(
         fc.asyncProperty(
-          fc.string({ minLength: 1 }).filter(s => s.trim() !== ''),
+          fc.string({ minLength: 3, maxLength: 50 }).filter(s => s.trim().length >= 3 && s.trim().length <= 50),
           async (text) => {
             // Reset tasks before each iteration
             el.tasks = []
@@ -104,7 +104,7 @@ describe('todo-list', () => {
 
       await fc.assert(
         fc.asyncProperty(
-          fc.string({ minLength: 1 }).filter(s => s.trim() !== ''),
+          fc.string({ minLength: 3, maxLength: 50 }).filter(s => s.trim().length >= 3 && s.trim().length <= 50),
           async (text) => {
             // Reset tasks before each iteration
             el.tasks = []
@@ -280,7 +280,7 @@ describe('todo-list', () => {
       await fc.assert(
         fc.asyncProperty(
           fc.array(validTaskArbitrary, { maxLength: 20 }),
-          fc.string({ minLength: 1 }).filter(s => s.trim() !== ''),
+          fc.string({ minLength: 3, maxLength: 50 }).filter(s => s.trim().length >= 3 && s.trim().length <= 50),
           async (initialTasks, newText) => {
             // Set up initial state with N tasks
             el.tasks = [...initialTasks]
