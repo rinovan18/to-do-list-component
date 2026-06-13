@@ -23,9 +23,9 @@
   ],
   "author": "",
   "peerDependencies": {
-    "lit": "*",
     "@haxtheweb/d-d-d": "*",
-    "@haxtheweb/i18n-manager": "*"
+    "@haxtheweb/i18n-manager": "*",
+    "lit": "*"
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.6.9",
@@ -33,6 +33,7 @@
     "@web/dev-server": "^0.4.0",
     "@web/test-runner": "^0.18.0",
     "eslint": "^8.0.0",
+    "fast-check": "^4.8.0",
     "prettier": "^3.0.0"
   }
 }

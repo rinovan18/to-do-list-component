@@ -28,7 +28,7 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Definisikan `this.t` di constructor dengan semua key: `addTask`, `inputPlaceholder`, `deleteTask`, `emptyMessage`, `taskCompleted`, `taskIncomplete` beserta nilai default bahasa Inggris
     - _Requirements: 2.1, 2.4, 8.2, 8.4_
 
-- [ ] 3. Implementasi metode logika bisnis (tanpa rendering)
+- [~] 3. Implementasi metode logika bisnis (tanpa rendering)
   - [x] 3.1 Implementasi `_addTask()` dengan validasi input
     - Baca nilai `<input id="task-input">` dari shadowRoot
     - Trim nilai input; jika kosong atau hanya whitespace → return early tanpa perubahan
@@ -37,30 +37,30 @@ Implementasi komponen web `<todo-list>` dalam monorepo HAX Webcomponents menggun
     - Kosongkan nilai input dan kembalikan fokus ke input field
     - _Requirements: 2.4, 3.2, 3.3, 3.5_
 
-  - [ ]* 3.2 Tulis property test untuk Property 1 (Task Object Schema Invariant)
+  - [x] 3.2 Tulis property test untuk Property 1 (Task Object Schema Invariant)
     - **Property 1: Task Object Schema Invariant**
     - **Validates: Requirements 2.4, 3.2**
     - Gunakan `fc.string({ minLength: 1 }).filter(s => s.trim() !== '')` untuk generate teks valid
     - Verifikasi task yang dihasilkan punya `id` string non-empty, `text` sesuai input trim, `completed === false`
 
-  - [ ]* 3.3 Tulis property test untuk Property 2 (Whitespace Input Rejection)
+  - [-] 3.3 Tulis property test untuk Property 2 (Whitespace Input Rejection)
     - **Property 2: Whitespace Input Rejection**
     - **Validates: Requirements 3.5**
     - Gunakan `fc.stringOf(fc.constantFrom(' ', '\t', '\n'))` untuk generate whitespace string
     - Verifikasi `tasks.length` tidak berubah setelah mencoba menambah whitespace string
 
-  - [ ]* 3.4 Tulis property test untuk Property 3 (Task Addition Increases List Length)
+  - [~] 3.4 Tulis property test untuk Property 3 (Task Addition Increases List Length)
     - **Property 3: Task Addition Increases List Length**
     - **Validates: Requirements 3.2, 6.1, 6.3**
     - Generate array tasks awal (N item) + string valid
     - Verifikasi `tasks.length === N + 1` dan task terakhir punya teks yang sesuai
 
-  - [ ]* 3.5 Tulis property test untuk Property 4 (Input Cleared After Addition)
+  - [~] 3.5 Tulis property test untuk Property 4 (Input Cleared After Addition)
     - **Property 4: Input Cleared After Addition**
     - **Validates: Requirements 3.3**
     - Setelah `_addTask()` berhasil, verifikasi `shadowRoot.querySelector('#task-input').value === ''`
 
-  - [ ] 3.6 Implementasi `_handleDelete(id)` dan `_handleToggleComplete(id, checked)`
+  - [~] 3.6 Implementasi `_handleDelete(id)` dan `_handleToggleComplete(id, checked)`
     - `_handleDelete`: `this.tasks = this.tasks.filter(task => task.id !== id)`
     - `_handleToggleComplete`: `this.tasks = this.tasks.map(task => task.id === id ? { ...task, completed: checked } : task)`
     - _Requirements: 4.2, 5.2, 5.3_
