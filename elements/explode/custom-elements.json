@@ -145,7 +145,8 @@
                 "text": "array"
               },
               "default": "[\n  {\n    question: \"Apa ibu kota Indonesia?\",\n    choices: [\"Bandung\", \"Surabaya\", \"Jakarta\", \"Medan\"],\n    correctIndex: 2,\n  },\n  {\n    question: \"Berapa hasil dari 7 × 8?\",\n    choices: [\"54\", \"56\", \"58\", \"60\"],\n    correctIndex: 1,\n  },\n  {\n    question: \"Planet terdekat dengan Matahari adalah?\",\n    choices: [\"Venus\", \"Bumi\", \"Mars\", \"Merkurius\"],\n    correctIndex: 3,\n  },\n]",
-              "attribute": "questions"
+              "attribute": "questions",
+              "reflects": true
             },
             {
               "kind": "field",
