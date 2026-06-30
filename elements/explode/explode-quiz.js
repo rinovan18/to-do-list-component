@@ -207,14 +207,99 @@ class ExplodeQuiz extends I18NMixin(DDDSuper(LitElement)) {
         );
         this._confettiFn = null;
       });
+
+    // HAXcms autoloader integration: register with HAXStore element tray
+    if (
+      globalThis.HaxStore &&
+      typeof globalThis.HaxStore.requestAvailability === "function"
+    ) {
+      const store = globalThis.HaxStore.requestAvailability();
+      if (store && !store.elementList[ExplodeQuiz.tag]) {
+        store.elementList[ExplodeQuiz.tag] = ExplodeQuiz.haxProperties;
+      }
+    }
+  }
+
+  /** Only true inside HAX editor (hax start / haxcms local dev) */
+  get _inHaxEditor() {
+    return !!(
+      globalThis.HaxStore &&
+      typeof globalThis.HaxStore.requestAvailability === "function" &&
+      globalThis.HaxStore.requestAvailability().editMode
+    );
   }
 
   _fireConfetti() {
     if (typeof this._confettiFn !== "function") return;
     try {
-      this._confettiFn({ particleCount: 120, spread: 70, origin: { y: 0.6 } });
+      const base = {
+        ticks: 220,
+        gravity: 0.85,
+        decay: 0.92,
+        startVelocity: 42,
+        zIndex: 9999,
+      };
+
+      // Center pop
+      this._confettiFn({
+        ...base,
+        particleCount: 70,
+        spread: 85,
+        scalar: 1.05,
+        origin: { x: 0.5, y: 0.62 },
+      });
+
+      // Left burst
+      this._confettiFn({
+        ...base,
+        particleCount: 45,
+        angle: 58,
+        spread: 65,
+        scalar: 1.1,
+        origin: { x: 0.1, y: 0.7 },
+      });
+
+      // Right burst
+      this._confettiFn({
+        ...base,
+        particleCount: 45,
+        angle: 122,
+        spread: 65,
+        scalar: 1.1,
+        origin: { x: 0.9, y: 0.7 },
+      });
     } catch (err) {
       console.error("[explode-quiz] Konfeti gagal dieksekusi:", err);
+    }
+  }
+
+  _fireMegaConfetti() {
+    if (typeof this._confettiFn !== "function") return;
+    try {
+      const duration = 900;
+      const end = Date.now() + duration;
+      const frame = () => {
+        this._confettiFn({
+          particleCount: 3,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0, y: 0.7 },
+          colors: ["#ff0000", "#00ff00", "#0000ff", "#ffff00"],
+        });
+        this._confettiFn({
+          particleCount: 3,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1, y: 0.7 },
+          colors: ["#ff0000", "#00ff00", "#0000ff", "#ffff00"],
+        });
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      };
+      frame();
+    } catch (err) {
+      console.error("[explode-quiz] Mega konfeti gagal dieksekusi:", err);
     }
   }
 
@@ -263,6 +348,7 @@ class ExplodeQuiz extends I18NMixin(DDDSuper(LitElement)) {
         class="edit-questions-btn"
         @click="${this._openEditorFromName}"
         aria-label="${this.t.ariaCloseEditor}"
+        ?hidden="${!this._inHaxEditor}"
       >
         ${this.t.editTitle}
       </button>
@@ -312,7 +398,9 @@ class ExplodeQuiz extends I18NMixin(DDDSuper(LitElement)) {
       ${this._feedbackText
         ? html`
             <div
-              class="feedback-area"
+              class="feedback-area ${this._feedbackPositive
+                ? "positive"
+                : "negative"}"
               aria-live="polite"
               aria-label="${this.t.ariaFeedback}"
             >
@@ -400,6 +488,7 @@ class ExplodeQuiz extends I18NMixin(DDDSuper(LitElement)) {
         class="edit-questions-btn"
         @click="${this._openEditor}"
         aria-label="${this.t.ariaCloseEditor}"
+        ?hidden="${!this._inHaxEditor}"
       >
         ${this.t.editTitle}
       </button>
@@ -1408,3 +1497,5 @@ class ExplodeQuiz extends I18NMixin(DDDSuper(LitElement)) {
 }
 
 globalThis.customElements.define(ExplodeQuiz.tag, ExplodeQuiz);
+
+export { ExplodeQuiz, DEFAULT_QUESTIONS };

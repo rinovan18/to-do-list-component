@@ -1,6 +1,7 @@
 import { fixture, html, expect } from '@open-wc/testing'
 import fc from 'fast-check'
-import '../explode-quiz.js'
+import sinon from 'sinon'
+import { DEFAULT_QUESTIONS } from '../explode-quiz.js'
 
 const FC_RUNS = 5
 
@@ -32,8 +33,7 @@ describe('explode-quiz', () => {
     })
 
     it('DEFAULT_QUESTIONS has at least 3 questions', async () => {
-      const el = await fixture(html`<explode-quiz></explode-quiz>`)
-      expect(el.DEFAULT_QUESTIONS).to.have.length.at.least(3)
+      expect(DEFAULT_QUESTIONS).to.have.length.at.least(3)
     })
 
     it('haxProperties has gizmo and settings', async () => {

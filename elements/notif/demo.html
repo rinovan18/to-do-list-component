@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Element Demo</title>
+    <!-- Load Lit runtime -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/lit@3.0.0/index.js"></script>
+    <!-- Load the notification element -->
+    <script type="module" src="./notif-element.js"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .demo-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        .controls {
+            margin: 20px 0;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .notification-container {
+            margin-top: 20px;
+        }
+        .api-demo {
+            background-color: #e9f7fe;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Notification Element for HAXCMS</h1>
+    
+    <div class="demo-section">
+        <h2>Basic Usage</h2>
+        <p>This is a vanilla JavaScript Lit Element designed for HAXCMS integration.</p>
+        
+        <div class="controls">
+            <button onclick="showNotification('info')">Show Info</button>
+            <button onclick="showNotification('success')">Show Success</button>
+            <button onclick="showNotification('warning')">Show Warning</button>
+            <button onclick="showNotification('error')">Show Error</button>
+            <button onclick="clearNotifications()">Clear All</button>
+        </div>
+        
+        <div class="notification-container" id="notificationContainer">
+            <!-- Notifications will be added here dynamically -->
+        </div>
+    </div>
+    
+    <div class="demo-section">
+        <h2>HAXCMS Integration</h2>
+        <p>To use this element in HAXCMS, add it to your site's assets and include it in your pages:</p>
+        <pre><code>&lt;!-- In your HAXCMS page HTML --&gt;
+&lt;script type="module" src="/assets/@notif/notif-element.js"&gt;&lt;/script&gt;
+
+&lt;!-- Use the element --&gt;
+&lt;notif-element
+  type="info"
+  message="Welcome to HAXCMS!"
+  duration="5000"
+  closable="true"
+&gt;&lt;/notif-element&gt;</code></pre>
+    </div>
+    
+    <div class="demo-section">
+        <h2>API Notification Demo</h2>
+        <p>Simulating API notification integration:</p>
+        <div class="controls">
+            <button onclick="fetchApiNotification()">Fetch API Notification</button>
+        </div>
+        <div class="api-demo" id="apiDemo">
+            <p>Click "Fetch API Notification" to simulate receiving a notification from an API endpoint.</p>
+        </div>
+    </div>
+
+    <script>
+        // Simple notification management
+        function showNotification(type) {
+            const container = document.getElementById('notificationContainer');
+            
+            // Create new notification element
+            const notif = document.createElement('notif-element');
+            notif.setAttribute('type', type);
+            notif.setAttribute('message', `This is a ${type} notification from HAXCMS.`);
+            notif.setAttribute('duration', '4000');
+            notif.setAttribute('closable', 'true');
+            
+            // Add to container
+            container.appendChild(notif);
+        }
+        
+        function clearNotifications() {
+            const container = document.getElementById('notificationContainer');
+            container.innerHTML = '';
+        }
+        
+        function fetchApiNotification() {
+            const apiDemo = document.getElementById('apiDemo');
+            
+            // Simulate API call
+            apiDemo.innerHTML = '<p>Fetching notification from API...</p>';
+            
+            // Simulate network delay
+            setTimeout(() => {
+                const notifications = [
+                    { type: 'success', message: 'API request completed successfully!' },
+                    { type: 'info', message: 'New content available for your site.' },
+                    { type: 'warning', message: 'Your site cache will be refreshed soon.' }
+                ];
+                
+                const container = document.getElementById('notificationContainer');
+                
+                // Add all notifications
+                notifications.forEach(notif => {
+                    const element = document.createElement('notif-element');
+                    element.setAttribute('type', notif.type);
+                    element.setAttribute('message', notif.message);
+                    element.setAttribute('duration', '5000');
+                    element.setAttribute('closable', 'true');
+                    container.appendChild(element);
+                });
+                
+                apiDemo.innerHTML = '<p>✅ API notifications received and displayed!</p>';
+            }, 1500);
+        }
+        
+        // Initialize with a welcome notification
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('notificationContainer');
+            const welcome = document.createElement('notif-element');
+            welcome.setAttribute('type', 'info');
+            welcome.setAttribute('message', 'Welcome to the Notification Element demo for HAXCMS!');
+            welcome.setAttribute('duration', '6000');
+            welcome.setAttribute('closable', 'true');
+            container.appendChild(welcome);
+        });
+    </script>
+</body>
+</html>

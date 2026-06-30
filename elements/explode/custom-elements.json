@@ -5,8 +5,629 @@
     {
       "kind": "javascript-module",
       "path": "explode-quiz.js",
-      "declarations": [],
-      "exports": []
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "DEFAULT_QUESTIONS",
+          "type": {
+            "text": "array"
+          },
+          "default": "[\n  {\n    question: \"Apa ibu kota Indonesia?\",\n    choices: [\"Bandung\", \"Surabaya\", \"Jakarta\", \"Medan\"],\n    correctIndex: 2,\n  },\n  {\n    question: \"Berapa hasil dari 7 × 8?\",\n    choices: [\"54\", \"56\", \"58\", \"60\"],\n    correctIndex: 1,\n  },\n  {\n    question: \"Planet terdekat dengan Matahari adalah?\",\n    choices: [\"Venus\", \"Bumi\", \"Mars\", \"Merkurius\"],\n    correctIndex: 3,\n  },\n]"
+        },
+        {
+          "kind": "class",
+          "description": "",
+          "name": "ExplodeQuiz",
+          "members": [
+            {
+              "kind": "field",
+              "name": "tag",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "haxProperties",
+              "static": true
+            },
+            {
+              "kind": "field",
+              "name": "_inHaxEditor",
+              "description": "Only true inside HAX editor (hax start / haxcms local dev)"
+            },
+            {
+              "kind": "method",
+              "name": "_fireConfetti"
+            },
+            {
+              "kind": "method",
+              "name": "_fireMegaConfetti"
+            },
+            {
+              "kind": "method",
+              "name": "_startQuiz"
+            },
+            {
+              "kind": "method",
+              "name": "_renderNameScreen"
+            },
+            {
+              "kind": "method",
+              "name": "_renderQuestionScreen"
+            },
+            {
+              "kind": "method",
+              "name": "_selectAnswer",
+              "parameters": [
+                {
+                  "name": "choiceIndex"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_advanceQuiz"
+            },
+            {
+              "kind": "method",
+              "name": "_renderResultScreen"
+            },
+            {
+              "kind": "method",
+              "name": "_restartQuiz"
+            },
+            {
+              "kind": "method",
+              "name": "_submitToSheets",
+              "parameters": [
+                {
+                  "name": "name"
+                },
+                {
+                  "name": "score"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_openEditor"
+            },
+            {
+              "kind": "method",
+              "name": "_openEditorFromName"
+            },
+            {
+              "kind": "method",
+              "name": "_renderEditorScreen"
+            },
+            {
+              "kind": "method",
+              "name": "_addQuestion"
+            },
+            {
+              "kind": "method",
+              "name": "_deleteQuestion",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_startEditQuestion",
+              "parameters": [
+                {
+                  "name": "index"
+                }
+              ]
+            },
+            {
+              "kind": "method",
+              "name": "_saveEditQuestion"
+            },
+            {
+              "kind": "method",
+              "name": "_cancelEditQuestion"
+            },
+            {
+              "kind": "method",
+              "name": "_saveAll"
+            },
+            {
+              "kind": "method",
+              "name": "_cancelAll"
+            },
+            {
+              "kind": "field",
+              "name": "questions",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[\n  {\n    question: \"Apa ibu kota Indonesia?\",\n    choices: [\"Bandung\", \"Surabaya\", \"Jakarta\", \"Medan\"],\n    correctIndex: 2,\n  },\n  {\n    question: \"Berapa hasil dari 7 × 8?\",\n    choices: [\"54\", \"56\", \"58\", \"60\"],\n    correctIndex: 1,\n  },\n  {\n    question: \"Planet terdekat dengan Matahari adalah?\",\n    choices: [\"Venus\", \"Bumi\", \"Mars\", \"Merkurius\"],\n    correctIndex: 3,\n  },\n]",
+              "attribute": "questions"
+            },
+            {
+              "kind": "field",
+              "name": "scriptFunctionName",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"submitQuizResult\"",
+              "attribute": "scriptFunctionName"
+            },
+            {
+              "kind": "field",
+              "name": "editable",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "editable",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "_screen",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"name\"",
+              "attribute": "_screen"
+            },
+            {
+              "kind": "field",
+              "name": "_studentName",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "_studentName"
+            },
+            {
+              "kind": "field",
+              "name": "_currentIndex",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "_currentIndex"
+            },
+            {
+              "kind": "field",
+              "name": "_score",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "attribute": "_score"
+            },
+            {
+              "kind": "field",
+              "name": "_answered",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_answered"
+            },
+            {
+              "kind": "field",
+              "name": "_selectedIndex",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "-1",
+              "attribute": "_selectedIndex"
+            },
+            {
+              "kind": "field",
+              "name": "_feedbackText",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "_feedbackText"
+            },
+            {
+              "kind": "field",
+              "name": "_feedbackPositive",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_feedbackPositive"
+            },
+            {
+              "kind": "field",
+              "name": "_validationError",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "_validationError"
+            },
+            {
+              "kind": "field",
+              "name": "_nameInputValue",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "_nameInputValue"
+            },
+            {
+              "kind": "field",
+              "name": "_editing",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "attribute": "_editing"
+            },
+            {
+              "kind": "field",
+              "name": "_tempQuestions",
+              "privacy": "public",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "attribute": "_tempQuestions"
+            },
+            {
+              "kind": "field",
+              "name": "_editingIndex",
+              "privacy": "public",
+              "type": {
+                "text": "number"
+              },
+              "default": "-1",
+              "attribute": "_editingIndex"
+            },
+            {
+              "kind": "field",
+              "name": "_tempQuestionText",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "_tempQuestionText"
+            },
+            {
+              "kind": "field",
+              "name": "_tempChoice0",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "_tempChoice0"
+            },
+            {
+              "kind": "field",
+              "name": "_tempChoice1",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "_tempChoice1"
+            },
+            {
+              "kind": "field",
+              "name": "_tempChoice2",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "_tempChoice2"
+            },
+            {
+              "kind": "field",
+              "name": "_tempChoice3",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "attribute": "_tempChoice3"
+            },
+            {
+              "kind": "field",
+              "name": "_tempCorrectIndex",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"0\"",
+              "attribute": "_tempCorrectIndex"
+            },
+            {
+              "kind": "field",
+              "name": "_editorOrigin",
+              "privacy": "public",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"result\"",
+              "attribute": "_editorOrigin"
+            },
+            {
+              "kind": "field",
+              "name": "t",
+              "type": {
+                "text": "object"
+              },
+              "default": "{\n      quizTitle: \"Kuis Interaktif\",\n      quizInstruction: \"Masukkan nama Anda untuk memulai kuis.\",\n      namePlaceholder: \"Nama Anda...\",\n      startButton: \"Mulai Kuis\",\n      validationNameEmpty: \"Nama tidak boleh kosong.\",\n      validationNameShort: \"Nama harus lebih dari 2 karakter.\",\n\n      // Layar_Soal\n      questionOf: \"Soal\",\n      of: \"dari\",\n      scoreLabel: \"Skor\",\n      feedbackCorrect: \"Mantap, Benar!\",\n      feedbackWrongPrefix: \"Yah, Salah. Jawaban benar: \",\n\n      // Layar_Hasil\n      resultHeading: \"Hasil Kuis\",\n      resultName: \"Nama\",\n      resultScore: \"Skor\",\n      resultTotal: \"Total Soal\",\n      resultPercentage: \"Persentase\",\n      messageHigh: \"Luar Biasa! Kamu Hebat!\",\n      messageMedium: \"Bagus! Terus Berlatih!\",\n      messageLow: \"Jangan Menyerah! Coba Lagi!\",\n      restartButton: \"Mulai Ulang\",\n\n      // Editor\n      editTitle: \"Edit Soal Kuis\",\n      closeEditor: \"Tutup Editor\",\n      questionPlaceholder: \"Tulis pertanyaan...\",\n      choicePlaceholder: \"Pilihan {N}\",\n      choiceCorrectLabel: \"Benar\",\n      addQuestionBtn: \"Tambah Soal\",\n      editQuestionBtn: \"Edit\",\n      deleteQuestionBtn: \"Hapus\",\n      saveEditBtn: \"Simpan Perubahan\",\n      cancelEditBtn: \"Batal\",\n      saveAllBtn: \"Simpan & Keluar\",\n      cancelAllBtn: \"Batal\",\n      minQuestionsError: \"Minimal 3 soal harus tersedia\",\n      emptyQuestionError: \"Pertanyaan tidak boleh kosong\",\n      emptyChoiceError: \"Semua pilihan jawaban harus diisi\",\n\n      // Aksesibilitas aria-label\n      ariaNameInput: \"Kolom nama siswa\",\n      ariaStartButton: \"Tombol mulai kuis\",\n      ariaAnswerButton: \"Pilihan jawaban\",\n      ariaRestartButton: \"Mulai ulang kuis\",\n      ariaScoreDisplay: \"Skor saat ini\",\n      ariaProgressLabel: \"Kemajuan kuis\",\n      ariaFeedback: \"Umpan balik jawaban\",\n\n      // Editor aria-labels\n      ariaEditTitle: \"Panel editor soal kuis\",\n      ariaCloseEditor: \"Tutup panel editor\",\n      ariaAddForm: \"Formulir tambah soal baru\",\n      ariaQuestionInput: \"Teks pertanyaan\",\n      ariaChoiceInput: \"Pilihan jawaban {N}\",\n      ariaCorrectChoice: \"Pilihan jawaban benar\",\n      ariaQuestionsList: \"Daftar soal yang tersedia\",\n      ariaQuestionCard: \"Kartu soal\",\n      ariaEditQuestion: \"Edit soal ini\",\n      ariaDeleteQuestion: \"Hapus soal ini\",\n      ariaSaveEdit: \"Simpan perubahan soal\",\n      ariaCancelEdit: \"Batal mengedit soal\",\n      ariaSaveAll: \"Simpan semua perubahan dan keluar\",\n      ariaCancelAll: \"Batal semua perubahan dan keluar\",\n    }"
+            },
+            {
+              "kind": "field",
+              "name": "",
+              "privacy": "public",
+              "attribute": ""
+            },
+            {
+              "kind": "field",
+              "name": "editing",
+              "privacy": "public",
+              "type": {
+                "text": "boolean"
+              },
+              "attribute": "editing",
+              "reflects": true
+            }
+          ],
+          "attributes": [
+            {
+              "name": "",
+              "fieldName": ""
+            },
+            {
+              "name": "questions",
+              "type": {
+                "text": "array"
+              },
+              "default": "DEFAULT_QUESTIONS",
+              "resolveInitializer": {
+                "module": "explode-quiz.js"
+              },
+              "fieldName": "questions"
+            },
+            {
+              "name": "scriptFunctionName",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"submitQuizResult\"",
+              "fieldName": "scriptFunctionName"
+            },
+            {
+              "name": "editable",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "editable"
+            },
+            {
+              "name": "editing",
+              "type": {
+                "text": "boolean"
+              },
+              "fieldName": "editing"
+            },
+            {
+              "name": "_screen",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"name\"",
+              "fieldName": "_screen"
+            },
+            {
+              "name": "_studentName",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "_studentName"
+            },
+            {
+              "name": "_currentIndex",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "_currentIndex"
+            },
+            {
+              "name": "_score",
+              "type": {
+                "text": "number"
+              },
+              "default": "0",
+              "fieldName": "_score"
+            },
+            {
+              "name": "_answered",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_answered"
+            },
+            {
+              "name": "_selectedIndex",
+              "type": {
+                "text": "number"
+              },
+              "default": "-1",
+              "fieldName": "_selectedIndex"
+            },
+            {
+              "name": "_feedbackText",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "_feedbackText"
+            },
+            {
+              "name": "_feedbackPositive",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_feedbackPositive"
+            },
+            {
+              "name": "_validationError",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "_validationError"
+            },
+            {
+              "name": "_nameInputValue",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "_nameInputValue"
+            },
+            {
+              "name": "_editing",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "fieldName": "_editing"
+            },
+            {
+              "name": "_tempQuestions",
+              "type": {
+                "text": "array"
+              },
+              "default": "[]",
+              "fieldName": "_tempQuestions"
+            },
+            {
+              "name": "_editingIndex",
+              "type": {
+                "text": "number"
+              },
+              "default": "-1",
+              "fieldName": "_editingIndex"
+            },
+            {
+              "name": "_tempQuestionText",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "_tempQuestionText"
+            },
+            {
+              "name": "_tempChoice0",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "_tempChoice0"
+            },
+            {
+              "name": "_tempChoice1",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "_tempChoice1"
+            },
+            {
+              "name": "_tempChoice2",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "_tempChoice2"
+            },
+            {
+              "name": "_tempChoice3",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "fieldName": "_tempChoice3"
+            },
+            {
+              "name": "_tempCorrectIndex",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"0\"",
+              "fieldName": "_tempCorrectIndex"
+            },
+            {
+              "name": "_editorOrigin",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"result\"",
+              "fieldName": "_editorOrigin"
+            }
+          ],
+          "mixins": [
+            {
+              "name": "I18NMixin",
+              "package": "@haxtheweb/i18n-manager/lib/I18NMixin.js"
+            },
+            {
+              "name": "DDDSuper",
+              "package": "@haxtheweb/d-d-d/d-d-d.js"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ExplodeQuiz",
+          "declaration": {
+            "name": "ExplodeQuiz",
+            "module": "explode-quiz.js"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "DEFAULT_QUESTIONS",
+          "declaration": {
+            "name": "DEFAULT_QUESTIONS",
+            "module": "explode-quiz.js"
+          }
+        }
+      ]
     },
     {
       "kind": "javascript-module",
